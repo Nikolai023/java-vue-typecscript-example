@@ -1,28 +1,28 @@
 <template>
-  <main>
-    <section class="services">
-      <div class="container">
-        <div class="services__inner">
 
-          <ServiceItem
-            @remove-service="handlerRemoveService"
-            v-bind:IsAdmin="IsAdmin"
-            v-bind:key="serv.id"
-            v-bind:serv="serv"
-            v-for="serv of services"
-          />
+  <section class="services">
+    <div class="container">
+      <div class="services__inner">
 
-        </div>
+        <ServiceItem
+          v-for="serv of services"
+          v-bind:key="serv.id"
+          v-bind:serv="serv"
+          v-bind:isAdmin="isAdmin"
+          @remove-service="handlerRemoveService"
+        />
+
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
 </template>
 
 <script>
   import ServiceItem from '@/components/ServiceItem';
 
   export default {
-    props: ['services', 'IsAdmin'],
+    props: ['services', 'isAdmin'],
     components: {
       ServiceItem,
     },

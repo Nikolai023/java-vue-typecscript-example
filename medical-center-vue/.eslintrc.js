@@ -14,7 +14,8 @@ module.exports = {
     'vue/script-indent': ['error', 2, { 'baseIndent': 1 }],
     'vue/max-len': [{ 'ignoreHTMLTextContents': true }],
     'import/extensions': ['error', 'always', {
-      'vue': 'never'
+      'vue': 'never',
+      'js': 'never'
     }]
   },
   parserOptions: {

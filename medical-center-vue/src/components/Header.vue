@@ -6,10 +6,10 @@
         <nav class="nav">
           <a @click.prevent="$emit('handlerAuthClicked')"
              class="nav__link" href=""
-             v-if="!IsAuth"> Войти </a>
+             v-if="!isAuth"> Войти </a>
           <a @click.prevent="$emit('handlerRegistryClicked')" class="nav__link" href=""
-             v-if="!IsAuth">Регистрация</a>
-          <a class="nav__link" href="" v-if="IsAuth">Личный кабинет</a>
+             v-if="!isAuth">Регистрация</a>
+          <a class="nav__link" href="" v-if="isAuth">Личный кабинет</a>
         </nav>
       </div>
     </div>
@@ -19,7 +19,7 @@
 <script>
   export default {
     props: {
-      IsAuth: Boolean,
+      isAuth: Boolean,
     },
   };
 </script>
