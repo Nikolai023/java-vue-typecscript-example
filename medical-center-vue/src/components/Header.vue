@@ -1,0 +1,25 @@
+<template>
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <div class="header__logo">Клиника</div>
+        <nav class="nav">
+          <a @click.prevent="$emit('handlerAuthClicked')"
+             class="nav__link" href=""
+             v-if="!IsAuth"> Войти </a>
+          <a @click.prevent="$emit('handlerRegistryClicked')" class="nav__link" href=""
+             v-if="!IsAuth">Регистрация</a>
+          <a class="nav__link" href="" v-if="IsAuth">Личный кабинет</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+</template>
+
+<script>
+  export default {
+    props: {
+      IsAuth: Boolean,
+    },
+  };
+</script>
