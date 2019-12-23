@@ -1,5 +1,10 @@
 <template>
   <main>
+    <ConfirmModal v-if="confirmModalVisible" v-bind:title="titleConfirm"
+                  v-bind:onConfirm="onConfirm"
+                  v-bind:onDecline="onDecline"
+                  v-bind:buttonText="buttonTextConfirm"
+    />
     <section class="service-page">
       <div class="container">
         <div class="admin__panel" v-if="isAdmin">
@@ -75,6 +80,7 @@
 <script>
   import ServicesService from '../service/ServicesService';
   import AuthService from '@/service/AuthService';
+  import ConfirmModal from './modals/ConfirmModal';
 
   // т.к в JS день недели начинается с воскресенья
   function getDay(date) { // получить номер дня недели, от 0 (пн) до 6 (вс)
@@ -140,6 +146,14 @@
         calend: '',
         date: new Date(),
 
+        confirmModalVisible: false,
+        titleConfirm: '',
+        buttonTextConfirm: '',
+        onConfirm: () => {
+        },
+        onDecline: () => {
+        },
+
         service: ServicesService.getServiceById(this.$route.params.id),
         editArea: {
           title: '',
@@ -147,6 +161,9 @@
           description: '',
         },
       };
+    },
+    components: {
+      ConfirmModal,
     },
     beforeMount() {
       this.date = new Date();
@@ -185,16 +202,46 @@
         this.isEditing = false;
       },
       handlerSaveClicked() {
-        this.service = Object.assign({}, this.editArea);
-        this.isEditing = false;
-
+        this.confirmModalVisible = true;
+        this.titleConfirm = 'Хотите сохранить?';
+        this.buttonTextConfirm = 'Сохранить';
+        this.onConfirm = () => {
+          this.service = Object.assign({}, this.editArea);
+          this.isEditing = false;
+          this.cleanAndCloseConfirmModal();
+        };
+        this.onDecline = () => {
+          this.cleanAndCloseConfirmModal();
+          this.isEditing = false;
+        };
         ServicesService.editServiceById(this.editArea.id, this.editArea);
       },
+      cleanAndCloseConfirmModal() {
+        this.titleConfirm = '';
+        this.buttonTextConfirm = '';
+        this.confirmModalVisible = !this.confirmModalVisible;
+      },
       handlerDeleteClicked() {
-        ServicesService.deleteServiceById(this.service.id);
-        console.log(ServicesService.getServices());
-        this.$router.push('/');
+        this.confirmModalVisible = true;
+        this.titleConfirm = 'Хотите удалить?';
+        this.buttonTextConfirm = 'Удалить';
+        this.onConfirm = () => {
+          ServicesService.deleteServiceById(this.service.id);
+          this.isEditing = false;
+          this.cleanAndCloseConfirmModal();
+          this.$router.push('/');
+        };
+        this.onDecline = () => {
+          this.cleanAndCloseConfirmModal();
+          this.isEditing = false;
+        };
       },
     },
   };
 </script>
+
+<style>
+  .btn_green {
+    background: green;
+  }
+</style>

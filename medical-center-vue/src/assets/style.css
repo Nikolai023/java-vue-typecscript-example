@@ -175,6 +175,7 @@ main {
 }
 
 .header__logo {
+    cursor: pointer;
     font-size: 30px;
     font-weight: bold;
     color: #e9e9e9;
@@ -494,7 +495,7 @@ main {
     background-color: rgba(179, 197, 233, 0.8);
     width: 100%;
     height: 100%;
-    z-index: 100;
+    z-index: 10000;
     overflow: hidden;
 }
 
@@ -602,12 +603,24 @@ input:invalid:not(:placeholder-shown) + .form__error {
 
 .records__inner {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    width: 80%;
+    flex-wrap: wrap;
 }
 
 .record-card {
     display: flex;
-    margin-bottom: 30px;
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px 30px 30px 30px;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.4);
+
+    transition: box-shadow .2s ease-in-out;
+}
+
+.record-card:hover {
+    box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.4);
 }
 
 .record-card__img {
@@ -616,7 +629,6 @@ input:invalid:not(:placeholder-shown) + .form__error {
 }
 
 .record-card__info {
-    margin-left: 20px;
 }
 
 .record-card__title {

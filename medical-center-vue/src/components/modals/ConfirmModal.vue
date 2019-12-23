@@ -12,6 +12,7 @@
           </div>
           <div class="confirm__btn-wrapper">
             <a href="" class="btn service-card_btn btn_red"
+               v-bind:class="{green: buttonText === 'Сохранить'}"
                @click.prevent="onConfirm">{{ buttonText }}</a>
             <a href="" class="btn service-card_btn"
                @click.prevent="onDecline">Отмена</a>
@@ -32,3 +33,10 @@
     },
   };
 </script>
+
+<style>
+  .green {
+    background-image: linear-gradient(90deg, #6CB16C 0%, #7FC57F 50%, #80c680 51%, #8bd08b 100%);
+    border-color: #528C52;
+  }
+</style>
