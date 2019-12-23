@@ -48,6 +48,8 @@
 </script>
 
 <style>
+  @import "./assets/style.css";
+
   #app {
     min-height: 100vh;
     display: flex;
