@@ -24,9 +24,9 @@
             <div class="calcont">
               <table class="cal">
                 <caption>
-                  <span class="prev"><a href="#">←</a></span>
-                  <span class="next"><a href="#">→</a></span>
-                  Декабрь 2019
+                  <span class="prev" @click="prevMonth"><a href="#">←</a></span>
+                  <span class="next" @click="nextMonth"><a href="#">→</a></span>
+                  {{currentMonth + ' ' + currentYear}}
                 </caption>
                 <thead>
                 <tr>
@@ -76,6 +76,7 @@
   import ServicesService from '../service/ServicesService';
   import AuthService from '@/service/AuthService';
 
+  // т.к в JS день недели начинается с воскресенья
   function getDay(date) { // получить номер дня недели, от 0 (пн) до 6 (вс)
     let day = date.getDay();
     if (day === 0) day = 7; // сделать воскресенье (0) последним днем
@@ -90,13 +91,11 @@
     let table = '<tr>';
     let k = 1;
     temp.setDate(d.getDate() - getDay(d) - 1);
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < getDay(d); i++) {
+    for (let i = 0; i < getDay(d); i += 1) {
       temp.setDate(temp.getDate() + 1);
       table += `<td class="off"><a href="#">${temp.getDate()}</a></td>`;
     }
 
-    // <td> ячейки календаря с датами]
     temp = new Date(year, mon);
     temp.setDate(temp.getDate() + 1);
     while (d.getMonth() === mon) {
@@ -104,9 +103,9 @@
 
       if (getDay(d) % 7 === 6) { // вс, последний день - перевод строки
         table += '</tr>';
+        // если день месяца не последний
         if (temp.getDate() > d.getDate()) {
-          // eslint-disable-next-line no-plusplus
-          k++;
+          k += 1;
           table += '<tr>';
         }
       }
@@ -114,43 +113,33 @@
       d.setDate(d.getDate() + 1);
     }
 
-    let j = 0;
-    // eslint-disable-next-line no-use-before-define
+    let daysNextMonth = 0;
     if (getDay(d) !== 0) {
-      // eslint-disable-next-line no-plusplus
-      for (let i = getDay(d); i < 7; i++) {
-        // eslint-disable-next-line no-plusplus
-        table += `<td class="off"><a href="#" class="off">${j++}</a></td>`;
+      for (let i = getDay(d); i < 7; i += 1) {
+        table += `<td class="off"><a href="#" class="off">${daysNextMonth += 1}</a></td>`;
       }
     }
-    // eslint-disable-next-line no-plusplus
-    for (let i = k; i < 6; i++) {
-      // eslint-disable-next-line no-plusplus
-      table += `<tr>
-                      <td class="off"><a href="#"> ${j += 1} </a></td>
-                      <td class="off"><a href="#"> ${j += 1} </a></td>
-                      <td class="off"><a href="#"> ${j += 1} </a></td>
-                      <td class="off"><a href="#"> ${j += 1} </a></td>
-                      <td class="off"><a href="#"> ${j += 1} </a></td>
-                      <td class="off"><a href="#"> ${j += 1} </a></td>
-                      <td class="off"><a href="#"> ${j += 1} </a></td>
-                  </tr>`;
+    for (let i = k; i < 6; i += 1) {
+      table += '<tr>';
+      for (let j = 0; j < 7; j += 1) {
+        table += `<td class="off"><a href="#"> ${daysNextMonth += 1} </a></td>`;
+      }
+      table += '</tr>';
     }
-
-    // закрыть таблицу
-    table += '</tr>';
 
     return table;
   }
-
 
   export default {
     data() {
       return {
         isEditing: false,
         isAdmin: AuthService.isAdmin(),
+        currentMonth: 0,
+        currentYear: 0,
+        calend: '',
+        date: new Date(),
 
-        calend: createCalendar(2012, 2),
         service: ServicesService.getServiceById(this.$route.params.id),
         editArea: {
           title: '',
@@ -160,17 +149,35 @@
       };
     },
     beforeMount() {
+      this.date = new Date();
+      this.calend = createCalendar(this.date.getFullYear(), this.date.getMonth() + 1);
+      this.currentMonth = ServicesService.getMonthName(this.date.getMonth());
+      this.currentYear = this.date.getFullYear();
+
       if (this.service === null) {
         this.$router.push('/');
       }
     },
     methods: {
+
+      nextMonth() {
+        this.date.setMonth(this.date.getMonth() + 1);
+        this.calend = createCalendar(this.date.getFullYear(), this.date.getMonth() + 1);
+        this.currentMonth = ServicesService.getMonthName(this.date.getMonth());
+        this.currentYear = this.date.getFullYear();
+      },
+      prevMonth() {
+        if (this.date > new Date()) {
+          this.date.setMonth(this.date.getMonth() - 1);
+          this.calend = createCalendar(this.date.getFullYear(), this.date.getMonth() + 1);
+          this.currentMonth = ServicesService.getMonthName(this.date.getMonth());
+          this.currentYear = this.date.getFullYear();
+        }
+      },
       onDescriptionInput(e) {
         this.editArea.description = e.target.innerHTML;
       },
       handlerEditClicked() {
-        console.log(new Date(2019, 11));
-        console.log(getDay());
         this.isEditing = true;
         this.editArea = Object.assign({}, this.service);
       },

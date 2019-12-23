@@ -15,6 +15,20 @@ const sukablya = `Lorem fdsaasdfipsum dolor sit amet consectetur adipisicing eli
         harum aut ipsa error, natus
         consequatur sit libero. Laudantium?`;
 
+const monthNames = [
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабрь',
+];
 
 export default {
   services: [
@@ -208,6 +222,9 @@ export default {
     },
   ],
 
+  getMonthName(month) {
+    return monthNames[month];
+  },
 
   getServices() {
     return this.services;
