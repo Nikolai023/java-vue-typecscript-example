@@ -2,6 +2,11 @@
 
   <section class="services">
     <div class="container">
+      <div class="admin__panel">
+        <button @click="handlerAddService" class="btn service-card_btn">
+          Добавить услугу
+        </button>
+      </div>
       <div class="services__inner">
 
         <ServiceItem
@@ -29,6 +34,9 @@
     methods: {
       handlerRemoveService(id) {
         this.$emit('remove-service', id);
+      },
+      handlerAddService() {
+        this.$router.push('/addservice');
       },
     },
   };

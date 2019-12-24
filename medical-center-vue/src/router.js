@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from '@/views/Home';
 import ServicePage from '@/components/ServicePage';
 import PrivateAccount from '@/components/PrivateAccount';
+import AddService from './components/AddService';
 
 Vue.use(Router);
 
@@ -21,6 +22,10 @@ export default new Router({
     {
       path: '/account',
       component: PrivateAccount,
+    },
+    {
+      path: '/addservice',
+      component: AddService,
     },
   ],
 });
