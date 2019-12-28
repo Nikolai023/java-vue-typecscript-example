@@ -1,59 +1,46 @@
- <template>
-   <main>
-     <section class="records">
-       <div class="container">
-         <div class="records__inner">
+<template>
+  <main>
+    <section class="records">
+      <div class="container records_content">
+        <div class="records__inner">
+          <Record v-for="rec of records"
+                  v-bind:rec="rec"
+                  v-bind:key="+rec.record"
+          />
+        </div>
+        <div class="records__sort">
+          <div class="records__text" @click="clickPastRecords">Прошедшие записи</div>
+          <div class="records__text" @click="clickNextRecords">Предстоящие записи</div>
+          <div class="records__text" @click="clickAllRecords">Все записи</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</template>
 
-           <div class="record-card">
+<script>
+  import ServicesService from '../service/ServicesService';
+  import Record from '@/components/Record';
 
-             <div class="record-card__info">
-               <h3 class="record-card__title"><a href="#">Зубной врач</a></h3>
-               <div class="record-card__description">
-                 Вы записаны
-                 <div class="record-card__date">на 20.12.2019</div>
-                 <div class="record-card__time"> в 12:30</div>
-               </div>
-             </div>
-           </div>
-
-           <div class="record-card">
-
-             <div class="record-card__info">
-               <h3 class="record-card__title"><a href="#">Зубной врач</a></h3>
-               <div class="record-card__description">
-                 Вы записаны
-                 <div class="record-card__date">на 20.12.2019</div>
-                 <div class="record-card__time"> в 12:30</div>
-               </div>
-             </div>
-           </div>
-
-           <div class="record-card">
-
-             <div class="record-card__info">
-               <h3 class="record-card__title"><a href="#">Зубной врач</a></h3>
-               <div class="record-card__description">
-                 Вы записаны
-                 <div class="record-card__date">на 20.12.2019</div>
-                 <div class="record-card__time"> в 12:30</div>
-               </div>
-             </div>
-           </div>
-
-           <div class="record-card">
-
-             <div class="record-card__info">
-               <h3 class="record-card__title"><a href="#">Зубной врач</a></h3>
-               <div class="record-card__description">
-                 Вы записаны
-                 <div class="record-card__date">на 20.12.2019</div>
-                 <div class="record-card__time"> в 12:30</div>
-               </div>
-             </div>
-           </div>
-
-         </div>
-       </div>
-     </section>
-   </main>
- </template>
+  export default {
+    data() {
+      return {
+        records: ServicesService.getRecordsByUser(),
+      };
+    },
+    components: {
+      Record,
+    },
+    methods: {
+      clickPastRecords() {
+        this.records = ServicesService.getPastRecords();
+      },
+      clickNextRecords() {
+        this.records = ServicesService.getNextRecords();
+      },
+      clickAllRecords() {
+        this.records = ServicesService.getRecordsByUser();
+      },
+    },
+  };
+</script>

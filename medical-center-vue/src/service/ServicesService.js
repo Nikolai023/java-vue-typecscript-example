@@ -60,12 +60,39 @@ export default {
     },
   ],
 
+  records: [
+    {
+      record: new Date(2019, 11, 25, 13, 0),
+      title: 'Зубной врач',
+    },
+    {
+      record: new Date(2020, 0, 9, 10, 30),
+      title: 'Диагностика',
+    },
+    {
+      record: new Date(2020, 1, 25, 11, 30),
+      title: 'Терапевт',
+    },
+  ],
+
   getMonthName(month) {
     return monthNames[month];
   },
 
+  getRecordsByUser() {
+    return this.records;
+  },
+
   addService(service) {
     this.services.push(service);
+  },
+
+  getPastRecords() {
+    return this.records.filter(r => r.record <= new Date().getTime());
+  },
+
+  getNextRecords() {
+    return this.records.filter(r => r.record > new Date().getTime());
   },
 
   getServices() {

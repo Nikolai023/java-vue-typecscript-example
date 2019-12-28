@@ -608,6 +608,28 @@ input:invalid:not(:placeholder-shown) + .form__error {
     flex-wrap: wrap;
 }
 
+.records_content {
+    display: flex;
+    position: relative;
+}
+
+.records__sort {
+    margin-top: 10px;
+    position: sticky;
+    top: 0;
+}
+
+.records__text {
+    cursor: pointer;
+    text-transform: uppercase;
+    padding: 5px 0;
+    margin-bottom: 5px;
+}
+
+.records__text:hover {
+    text-decoration: underline;
+}
+
 .record-card {
     display: flex;
     margin: 10px;
@@ -615,6 +637,7 @@ input:invalid:not(:placeholder-shown) + .form__error {
     border-radius: 5px;
     padding: 10px 30px 30px 30px;
     box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.4);
+    min-width: 231px;
 
     transition: box-shadow .2s ease-in-out;
 }
