@@ -1,9 +1,9 @@
 <template>
   <div class="service-card">
     <div class="service-card__buttons">
-      <a v-if="isAdmin" @click.prevent="$emit('remove-service', serv.id)"
-         class="service-card__round-btn"
-         href="#">
+      <a @click.prevent="$emit('remove-service', serv.id)" class="service-card__round-btn"
+         href="#"
+         v-if="isAdmin">
         <i class="far fa-times-circle"/></a>
     </div>
     <img :src="serv.photo" alt="" class="service-card__img">

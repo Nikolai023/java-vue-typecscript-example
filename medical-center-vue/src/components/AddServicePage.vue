@@ -15,12 +15,12 @@
         <div class="service-page__inner">
           <input class="service-page__input-title" type="text" v-model="editArea.title">
           <div class="service-page__middle">
-            <img class="service-page__img" :src="editArea.photo" alt="">
+            <img :src="editArea.photo" alt="" class="service-page__img">
             <div class="calcont">
               <table class="cal">
                 <caption>
-                  <span class="prev" ><a href="#">←</a></span>
-                  <span class="next" ><a href="#">→</a></span>
+                  <span class="prev"><a href="#">←</a></span>
+                  <span class="next"><a href="#">→</a></span>
                   {{currentMonth + ' ' + currentYear}}
                 </caption>
                 <thead>
@@ -39,24 +39,24 @@
               </table>
               <div class="times">
                 <div class="times__inner">
-                  <span class="times__data"><a href="#" class="times__data-link">08:30</a></span>
-                  <span class="times__data"><a href="#" class="times__data-link">09:30</a></span>
-                  <span class="times__data"><a href="#" class="times__data-link">10:30</a></span>
-                  <span class="times__data"><a href="#" class="times__data-link">11:30</a></span>
-                  <span class="times__data"><a href="#" class="times__data-link">12:30</a></span>
-                  <span class="times__data"><a href="#" class="times__data-link">13:30</a></span>
-                  <span class="times__data"><a href="#" class="times__data-link">15:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">08:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">09:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">10:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">11:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">12:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">13:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">15:30</a></span>
                 </div>
                 <div class="calcont__submit">
-                  <input type="submit" value="Записаться" class="btn service-card_btn">
+                  <input class="btn service-card_btn" type="submit" value="Записаться">
                 </div>
               </div>
             </div>
 
-            <div contenteditable="true"
+            <div @focusout="onDescriptionInput($event)"
                  class="service-page__description"
+                 contenteditable="true"
                  v-html="editArea.description"
-                 @focusout="onDescriptionInput($event)"
             />
           </div>
         </div>
@@ -78,7 +78,6 @@
           title: '',
           description: '',
           photo: 'https://via.placeholder.com/900x750',
-          // eslint-disable-next-line new-cap
           id: '',
         },
       };

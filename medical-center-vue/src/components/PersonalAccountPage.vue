@@ -3,15 +3,15 @@
     <section class="records">
       <div class="container records_content">
         <div class="records__inner">
-          <Record v-for="rec of records"
+          <Record v-bind:key="+rec.record"
                   v-bind:rec="rec"
-                  v-bind:key="+rec.record"
+                  v-for="rec of records"
           />
         </div>
         <div class="records__sort">
-          <div class="records__text" @click="clickPastRecords">Прошедшие записи</div>
-          <div class="records__text" @click="clickNextRecords">Предстоящие записи</div>
-          <div class="records__text" @click="clickAllRecords">Все записи</div>
+          <div @click="clickPastRecords" class="records__text">Прошедшие записи</div>
+          <div @click="clickNextRecords" class="records__text">Предстоящие записи</div>
+          <div @click="clickAllRecords" class="records__text">Все записи</div>
         </div>
       </div>
     </section>

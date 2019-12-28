@@ -4,8 +4,8 @@
             @handlerRegistryClicked="handlerRegistryClicked"
             v-bind:isAuth="isAuthorized"/>
     <!--modals-->
-    <AuthModal v-if="authModalVisible" @handlerAuthClicked="handlerAuthClicked"/>
-    <RegistryModal v-if="registryModalVisible" @handlerRegistryClicked="handlerRegistryClicked"/>
+    <AuthModal @handlerAuthClicked="handlerAuthClicked" v-if="authModalVisible"/>
+    <RegistryModal @handlerRegistryClicked="handlerRegistryClicked" v-if="registryModalVisible"/>
 
     <!--main-->
     <router-view/>

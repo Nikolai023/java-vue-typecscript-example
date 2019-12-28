@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/views/Home';
+import HomePage from '@/views/HomePage';
 import ServicePage from '@/components/ServicePage';
-import PrivateAccount from '@/components/PrivateAccount';
-import AddService from './components/AddService';
+import PersonalAccountPage from '@/components/PersonalAccountPage';
+import AddServicePage from './components/AddServicePage';
 
 Vue.use(Router);
 
@@ -12,7 +12,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Home,
+      component: HomePage,
     },
     {
       path: '/service/:id',
@@ -21,11 +21,11 @@ export default new Router({
     },
     {
       path: '/account',
-      component: PrivateAccount,
+      component: PersonalAccountPage,
     },
     {
       path: '/addservice',
-      component: AddService,
+      component: AddServicePage,
     },
   ],
 });

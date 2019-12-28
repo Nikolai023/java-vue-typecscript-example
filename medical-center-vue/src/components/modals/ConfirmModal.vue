@@ -5,17 +5,17 @@
         <div class="form">
           <h2 class="form__name">{{ title }}</h2>
           <div class="form__btn-wrapper">
-            <a class="service-card__round-btn" href=""
-               @click.prevent="onDecline">
+            <a @click.prevent="onDecline" class="service-card__round-btn"
+               href="">
               <i class="far fa-times-circle"/>
             </a>
           </div>
           <div class="confirm__btn-wrapper">
-            <a href="" class="btn service-card_btn btn_red"
-               v-bind:class="{green: buttonText === 'Сохранить'}"
-               @click.prevent="onConfirm">{{ buttonText }}</a>
-            <a href="" class="btn service-card_btn"
-               @click.prevent="onDecline">Отмена</a>
+            <a @click.prevent="onConfirm" class="btn service-card_btn btn_red"
+               href=""
+               v-bind:class="{green: buttonText === 'Сохранить'}">{{ buttonText }}</a>
+            <a @click.prevent="onDecline" class="btn service-card_btn"
+               href="">Отмена</a>
           </div>
         </div>
       </div>

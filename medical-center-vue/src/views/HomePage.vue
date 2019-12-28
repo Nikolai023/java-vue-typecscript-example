@@ -1,14 +1,14 @@
 <template>
   <main>
-    <ConfirmModal v-if="confirmModalVisible" v-bind:title="titleConfirm"
-                  v-bind:onConfirm="onConfirm"
+    <ConfirmModal v-bind:buttonText="buttonTextConfirm" v-bind:onConfirm="onConfirm"
                   v-bind:onDecline="onDecline"
-                  v-bind:buttonText="buttonTextConfirm"
+                  v-bind:title="titleConfirm"
+                  v-if="confirmModalVisible"
     />
     <ServicesList
-      v-bind:services="services"
-      v-bind:isAdmin="isAdmin"
       @remove-service="handlerRemoveService"
+      v-bind:isAdmin="isAdmin"
+      v-bind:services="services"
     />
   </main>
 </template>

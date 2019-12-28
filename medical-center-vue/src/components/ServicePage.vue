@@ -1,36 +1,36 @@
 <template>
   <main>
-    <ConfirmModal v-if="confirmModalVisible" v-bind:title="titleConfirm"
-                  v-bind:onConfirm="onConfirm"
+    <ConfirmModal v-bind:buttonText="buttonTextConfirm" v-bind:onConfirm="onConfirm"
                   v-bind:onDecline="onDecline"
-                  v-bind:buttonText="buttonTextConfirm"
+                  v-bind:title="titleConfirm"
+                  v-if="confirmModalVisible"
     />
     <section class="service-page">
       <div class="container">
         <div class="admin__panel" v-if="isAdmin">
-          <button v-if="!isEditing"
-                  class="btn service-card_btn" @click="handlerEditClicked">Редактировать
+          <button @click="handlerEditClicked"
+                  class="btn service-card_btn" v-if="!isEditing">Редактировать
           </button>
-          <button v-if="isEditing" @click="handlerSaveClicked" class="btn service-card_btn">
+          <button @click="handlerSaveClicked" class="btn service-card_btn" v-if="isEditing">
             Сохранить
           </button>
-          <button v-if="isEditing" class="btn service-card_btn"
-                  @click="handlerDeclineClicked">Отмена
+          <button @click="handlerDeclineClicked" class="btn service-card_btn"
+                  v-if="isEditing">Отмена
           </button>
-          <button v-if="isEditing" @click="handlerDeleteClicked"
-                  class="btn service-card_btn btn_red">Удалить
+          <button @click="handlerDeleteClicked" class="btn service-card_btn btn_red"
+                  v-if="isEditing">Удалить
           </button>
         </div>
         <div class="service-page__inner">
-          <h2 v-if="!isEditing" class="service-page__title">{{ service.title }}</h2>
-          <input v-else class="service-page__input-title" type="text" v-model="editArea.title">
+          <h2 class="service-page__title" v-if="!isEditing">{{ service.title }}</h2>
+          <input class="service-page__input-title" type="text" v-else v-model="editArea.title">
           <div class="service-page__middle">
-            <img class="service-page__img" :src="service.photo" alt="">
+            <img :src="service.photo" alt="" class="service-page__img">
             <div class="calcont">
               <table class="cal">
                 <caption>
-                  <span class="prev" @click="prevMonth"><a href="#">←</a></span>
-                  <span class="next" @click="nextMonth"><a href="#">→</a></span>
+                  <span @click="prevMonth" class="prev"><a href="#">←</a></span>
+                  <span @click="nextMonth" class="next"><a href="#">→</a></span>
                   {{currentMonth + ' ' + currentYear}}
                 </caption>
                 <thead>
@@ -49,26 +49,26 @@
               </table>
               <div class="times">
                 <div class="times__inner">
-                  <span class="times__data"><a href="#" class="times__data-link">08:30</a></span>
-                  <span class="times__data"><a href="#" class="times__data-link">09:30</a></span>
-                  <span class="times__data"><a href="#" class="times__data-link">10:30</a></span>
-                  <span class="times__data"><a href="#" class="times__data-link">11:30</a></span>
-                  <span class="times__data"><a href="#" class="times__data-link">12:30</a></span>
-                  <span class="times__data"><a href="#" class="times__data-link">13:30</a></span>
-                  <span class="times__data"><a href="#" class="times__data-link">15:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">08:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">09:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">10:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">11:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">12:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">13:30</a></span>
+                  <span class="times__data"><a class="times__data-link" href="#">15:30</a></span>
                 </div>
                 <div class="calcont__submit">
-                  <input type="submit" value="Записаться" class="btn service-card_btn">
+                  <input class="btn service-card_btn" type="submit" value="Записаться">
                 </div>
               </div>
             </div>
-            <div v-if="!isEditing" contenteditable="false" class="service-page__description">
+            <div class="service-page__description" contenteditable="false" v-if="!isEditing">
               {{ service.description }}
             </div>
-            <div v-else contenteditable="true"
-                 class="service-page__description"
+            <div @focusout="onDescriptionInput($event)" class="service-page__description"
+                 contenteditable="true"
+                 v-else
                  v-html="editArea.description"
-                 @focusout="onDescriptionInput($event)"
             />
           </div>
         </div>

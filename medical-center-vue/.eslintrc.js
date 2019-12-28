@@ -16,7 +16,8 @@ module.exports = {
     'import/extensions': ['error', 'always', {
       'vue': 'never',
       'js': 'never'
-    }]
+    }],
+    'linebreak-style': ['error', 'windows']
   },
   parserOptions: {
     parser: 'babel-eslint',

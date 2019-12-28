@@ -10,11 +10,11 @@
       <div class="services__inner">
 
         <ServiceItem
-          v-for="serv of services"
+          @remove-service="handlerRemoveService"
+          v-bind:isAdmin="isAdmin"
           v-bind:key="serv.id"
           v-bind:serv="serv"
-          v-bind:isAdmin="isAdmin"
-          @remove-service="handlerRemoveService"
+          v-for="serv of services"
         />
 
       </div>
