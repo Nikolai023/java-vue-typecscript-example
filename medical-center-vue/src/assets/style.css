@@ -39,7 +39,7 @@ main {
 }
 
 .services {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .services__inner {
@@ -179,6 +179,43 @@ main {
     font-size: 30px;
     font-weight: bold;
     color: #e9e9e9;
+}
+
+.header__middle {
+    display: flex;
+}
+
+.search-block {
+    align-self: center;
+}
+
+.search-block__label {
+    cursor: pointer;
+}
+
+.search-block__label i {
+    height: 20px;
+}
+
+.header___search,
+.header___search:valid{
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 30px;
+    border: 1px solid transparent !important;
+    align-self: center;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 3px;
+    outline: none;
+    color: #e9e9e9;
+    padding: 0 5px;
+    font-size: 12px;
+    transition: border-color .2s ease-in-out;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.header___search:focus {
+    border: 1px solid rgba(0, 0, 0, 0.22) !important;
 }
 
 .nav {

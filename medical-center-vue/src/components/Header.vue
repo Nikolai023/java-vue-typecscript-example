@@ -3,15 +3,23 @@
     <div class="container">
       <div class="header__inner">
         <div @click="handlerLogoClick" class="header__logo">Клиника</div>
-        <nav class="nav">
-          <a @click.prevent="$emit('handlerAuthClicked')"
-             class="nav__link" href=""
-             v-if="!isAuth"> Войти </a>
-          <a @click.prevent="$emit('handlerRegistryClicked')" class="nav__link" href=""
-             v-if="!isAuth">Регистрация</a>
-          <a @click.prevent="handlerLkClicked" class="nav__link" href=""
-             v-if="isAuth">Личный кабинет</a>
-        </nav>
+        <div class="header__middle">
+          <div class="search-block">
+            <label for="search" class="search-block__label">
+              <i class="fas fa-search"></i>
+            </label>
+            <input id="search" type="text" class="header___search">
+          </div>
+          <nav class="nav">
+            <a @click.prevent="$emit('handlerAuthClicked')"
+               class="nav__link" href=""
+               v-if="!isAuth"> Войти </a>
+            <a @click.prevent="$emit('handlerRegistryClicked')" class="nav__link" href=""
+               v-if="!isAuth">Регистрация</a>
+            <a @click.prevent="handlerLkClicked" class="nav__link" href=""
+               v-if="isAuth">Личный кабинет</a>
+          </nav>
+        </div>
       </div>
     </div>
   </header>

@@ -1,8 +1,7 @@
 <template>
-
   <section class="services">
     <div class="container">
-      <div class="admin__panel">
+      <div class="admin__panel" v-if="isAdmin">
         <button @click="handlerAddService" class="btn service-card_btn">
           Добавить услугу
         </button>
@@ -16,11 +15,9 @@
           v-bind:serv="serv"
           v-for="serv of services"
         />
-
       </div>
     </div>
   </section>
-
 </template>
 
 <script>
