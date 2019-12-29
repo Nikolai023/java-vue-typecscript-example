@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import AuthService from '@/service/AuthService';
+  import AuthenticationService from '@/service/AuthenticationService';
 
   export default {
     props: {
@@ -28,7 +28,7 @@
         type: Object,
         required: true,
       },
-      isAdmin: AuthService.isAdmin(),
+      isAdmin: AuthenticationService.isAdmin(),
     },
   };
 </script>

@@ -2,7 +2,7 @@
   <div id="app">
     <Header @handlerAuthClicked="handlerAuthClicked"
             @handlerRegistryClicked="handlerRegistryClicked"
-            v-bind:isAuth="isAuthorized"/>
+            v-bind:isAuth="isAuth"/>
     <!--modals-->
     <AuthModal @handlerAuthClicked="handlerAuthClicked" v-if="authModalVisible"
                v-bind:informTitle="informMessage"
@@ -25,14 +25,14 @@
   import Header from '@/components/Header';
   import Footer from '@/components/Footer';
   import AuthModal from '@/components/modals/AuthModal';
-  import AuthService from '@/service/AuthService';
   import RegistryModal from '@/components/modals/RegistryModal';
   import InformationModal from '@/components/modals/InformationModal';
+  import AuthenticationService from '@/service/AuthenticationService';
 
   export default {
     data() {
       return {
-        isAuthorized: AuthService.isAuthorized(),
+        isAuth: AuthenticationService.isAuthorized(),
 
         informMessage: 'Неправильный логин или пароль',
         informMessageVisible: false,
@@ -66,13 +66,17 @@
       handlerAuthSubmit(login, password) {
         console.log(`${login} ${password}`);
 
-        // если логин или пароль неправильный, то делать так,
-        this.informMessage = 'Неправильный логин или пароль';
-        this.informMessageVisible = true;
-
-        // если все нормально, то делать так
-        this.informMessageVisible = false;
-        this.authModalVisible = !this.authModalVisible;
+        AuthenticationService.executeBasicAuthenticationService(login, password)
+          .then((authDetails) => {
+            AuthenticationService.registerSuccessfulLogin(authDetails, password);
+            this.informMessageVisible = false;
+            this.authModalVisible = !this.authModalVisible;
+          })
+          .catch((e) => {
+            console.log(e);
+            this.informMessage = 'Неправильный логин или пароль';
+            this.informMessageVisible = true;
+          });
       },
       handlerRegistrationSubmit(login, password) {
         console.log(`${login} ${password}`);

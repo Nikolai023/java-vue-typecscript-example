@@ -17,13 +17,13 @@
   import ServicesList from '@/components/ServicesList';
   import ConfirmModal from '@/components/modals/ConfirmModal';
   import ServicesService from '../service/ServicesService';
-  import AuthService from '@/service/AuthService';
+  import AuthenticationService from '@/service/AuthenticationService';
 
   export default {
     name: 'app',
     data() {
       return {
-        isAdmin: AuthService.isAdmin(),
+        isAdmin: AuthenticationService.isAdmin(),
 
         titleConfirm: '',
         onConfirm: () => {

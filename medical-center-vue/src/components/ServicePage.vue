@@ -79,14 +79,14 @@
 
 <script>
   import ServicesService from '../service/ServicesService';
-  import AuthService from '@/service/AuthService';
+  import AuthenticationService from '@/service/AuthenticationService';
   import ConfirmModal from './modals/ConfirmModal';
 
   export default {
     data() {
       return {
         isEditing: false,
-        isAdmin: AuthService.isAdmin(),
+        isAdmin: AuthenticationService.isAdmin(),
         currentMonth: 0,
         currentYear: 0,
         calend: '',

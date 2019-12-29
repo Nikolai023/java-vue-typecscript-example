@@ -26,9 +26,7 @@ class AuthenticationService {
       { headers: { authorization: this.createBasicAuthToken(username, password) } });
   }
 
-  createBasicAuthToken(username, password) {
-    return `Basic ${window.btoa(`${username}:${password}`)}`;
-  }
+  createBasicAuthToken = (username, password) => `Basic ${window.btoa(`${username}:${password}`)}`;
 
   registerSuccessfulLogin(userDetails, password) {
     this.clearSessionStorage();
@@ -44,7 +42,8 @@ class AuthenticationService {
   setupAxiosInterceptors(token) {
     axios.interceptors.request.use(
       (config) => {
-        if (this.isUserLoggedIn()) {
+        if (this.isAuthorized()) {
+          // eslint-disable-next-line no-param-reassign
           config.headers.Authorization = token;
         }
         return config;
@@ -52,22 +51,18 @@ class AuthenticationService {
     );
   }
 
-  isUserLoggedIn() {
+  isAuthorized = () => {
     const user = sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
     return user !== null;
-  }
+  };
 
-  isUserAdmin() {
-    return sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_ADMIN_MARKER);
-  }
+  isAdmin = () => sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_ADMIN_MARKER);
 
-  getToken() {
-    return sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_TOKEN);
-  }
+  getToken = () => sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_TOKEN);
 
-  clearSessionStorage() {
+  clearSessionStorage = () => {
     sessionStorage.clear();
-  }
+  };
 
   logout() {
     this.clearSessionStorage();

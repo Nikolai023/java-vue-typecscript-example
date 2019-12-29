@@ -66,13 +66,13 @@
 </template>
 
 <script>
-  import AuthService from '@/service/AuthService';
   import ServicesService from '../service/ServicesService';
+  import AuthenticationService from '@/service/AuthenticationService';
 
   export default {
     data() {
       return {
-        isAdmin: AuthService.isAdmin(),
+        isAdmin: AuthenticationService.isAdmin(),
         calend: ServicesService.createCalendar(2019, 12),
         editArea: {
           title: '',

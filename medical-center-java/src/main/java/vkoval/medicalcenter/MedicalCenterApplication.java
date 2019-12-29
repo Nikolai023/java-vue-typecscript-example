@@ -74,8 +74,8 @@ public class MedicalCenterApplication {
         userRepository.save(admin);
 
         User user = new User();
-        user.setLogin("admin");
-        user.setPassword("admin");
+        user.setLogin("user");
+        user.setPassword("user");
         user.setRole(Role.USER);
         userRepository.save(user);
 
