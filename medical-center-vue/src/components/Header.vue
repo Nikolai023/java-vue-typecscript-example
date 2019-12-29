@@ -6,7 +6,7 @@
         <div class="header__middle">
           <div class="search-block">
             <label for="search" class="search-block__label">
-              <i class="fas fa-search"></i>
+              <i class="fas fa-search"/>
             </label>
             <input id="search" type="text" class="header___search">
           </div>
@@ -18,7 +18,8 @@
                v-if="!isAuth">Регистрация</a>
             <a @click.prevent="handlerLkClicked" class="nav__link" href=""
                v-if="isAuth">Личный кабинет</a>
-            <a @click.prevent="$emit('handlerExitClicked')" class="nav__link nav__link_exit" href=""
+            <a @click.prevent="$emit('handlerLogoutClicked')" class="nav__link nav__link_exit"
+               href=""
                v-if="isAuth">Выход</a>
           </nav>
         </div>
