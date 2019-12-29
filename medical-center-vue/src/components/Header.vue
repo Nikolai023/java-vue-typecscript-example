@@ -18,7 +18,7 @@
                v-if="!isAuth">Регистрация</a>
             <a @click.prevent="handlerLkClicked" class="nav__link" href=""
                v-if="isAuth">Личный кабинет</a>
-            <a @click.prevent="handlerQuitClicked" class="nav__link nav__link_exit" href=""
+            <a @click.prevent="$emit('handlerExitClicked')" class="nav__link nav__link_exit" href=""
                v-if="isAuth">Выход</a>
           </nav>
         </div>
@@ -38,9 +38,6 @@
       },
       handlerLkClicked() {
         this.$router.push('/account');
-      },
-      handlerQuitClicked() {
-
       },
     },
   };

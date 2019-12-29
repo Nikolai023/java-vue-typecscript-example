@@ -2,7 +2,8 @@
   <div id="app">
     <Header @handlerAuthClicked="handlerAuthClicked"
             @handlerRegistryClicked="handlerRegistryClicked"
-            v-bind:isAuth="isAuth"/>
+            v-bind:isAuth="isAuth"
+            @handlerExitClicked="handlerExitClicked"/>
     <!--modals-->
     <AuthModal @handlerAuthClicked="handlerAuthClicked" v-if="authModalVisible"
                v-bind:informTitle="informMessage"
@@ -59,6 +60,8 @@
       handlerRegistryClicked() {
         this.informMessageVisible = false;
         this.registryModalVisible = !this.registryModalVisible;
+      },
+      handlerExitClicked() {
       },
       handlerInformModalClicked() {
         this.informationModalVisible = !this.informationModalVisible;
