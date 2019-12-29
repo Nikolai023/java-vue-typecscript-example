@@ -11,7 +11,7 @@
             </label>
             <label v-if="isSearching" for="search" class="search-block__label"
                    @click="handlerNoSearchClicked()">
-              <i class="fas fa-times"></i>
+              <i class="fas fa-times"/>
             </label>
             <input id="search" type="text" class="header___search" v-model="searchLine">
           </div>
@@ -53,12 +53,18 @@
         this.$router.push('/account');
       },
       handlerSearchClicked(searchLine) {
-        console.log(searchLine);
+        this.$router.push({
+          path: '/',
+          query: { title: searchLine },
+        });
         this.isSearching = true;
       },
       handlerNoSearchClicked() {
         this.isSearching = false;
         this.searchLine = '';
+        this.$router.push({
+          path: '/',
+        });
       },
     },
   };

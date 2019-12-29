@@ -4,4 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 import vkoval.medicalcenter.entity.service.MedicalService;
 
 public interface MedicalServiceRepository extends CrudRepository<MedicalService, Long> {
+    Iterable<MedicalService> findAllByTitleContains(String title);
 }

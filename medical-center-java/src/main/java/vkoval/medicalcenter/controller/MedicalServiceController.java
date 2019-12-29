@@ -1,5 +1,6 @@
 package vkoval.medicalcenter.controller;
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import vkoval.medicalcenter.dao.AppointmentRepository;
 import vkoval.medicalcenter.dao.MedicalServiceRepository;
@@ -19,8 +20,11 @@ public class MedicalServiceController {
     }
 
     @GetMapping("/service/all")
-    public Iterable<MedicalService> getAll() {
-        return serviceRepository.findAll();
+    public Iterable<MedicalService> getAllFiltered(@RequestParam(value = "title", required = false) String serviceName) {
+        if (StringUtils.isEmpty(serviceName)) {
+            return serviceRepository.findAll();
+        }
+        return serviceRepository.findAllByTitleContains(serviceName);
     }
 
     @GetMapping("/service/{id}")

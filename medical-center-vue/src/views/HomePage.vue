@@ -16,7 +16,7 @@
 <script>
   import ServicesList from '@/components/ServicesList';
   import ConfirmModal from '@/components/modals/ConfirmModal';
-  import ServicesService from '../service/ServicesService';
+  import ServicesService from '@/service/ServicesService';
   import AuthenticationService from '@/service/AuthenticationService';
 
   export default {
@@ -38,16 +38,21 @@
       };
     },
     mounted() {
-      ServicesService.getServices()
+      ServicesService.getServices(this.$route.query.title)
         .then(data => data.data)
         .then((data) => {
-          console.log(data);
           this.services = data;
         });
-      // fetch('https://jsonplaceholder.typicode.com/posts')
-      //     .then(response => response.json())
-      //     // eslint-disable-next-line no-console
-      //     .then(json =>  {this.services = json})
+    },
+    watch: {
+      $route(to, from) {
+        console.log(to + from);
+        ServicesService.getServices(this.$route.query.title)
+          .then(data => data.data)
+          .then((data) => {
+            this.services = data;
+          });
+      },
     },
     components: {
       ServicesList,
@@ -59,9 +64,10 @@
         this.titleConfirm = 'Хотите удалить?';
         this.buttonTextConfirm = 'Удалить';
         this.onConfirm = () => {
+          console.log(this.$route.query.title);
           ServicesService.deleteServiceById(id)
             .then(() => {
-              ServicesService.getServices()
+              ServicesService.getServices(this.$route.query.title)
                 .then(data => data.data)
                 .then((data) => {
                   console.log(data);

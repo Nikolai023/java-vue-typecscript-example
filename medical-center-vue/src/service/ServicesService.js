@@ -100,8 +100,12 @@ export default {
     return this.records.filter(r => r.record > new Date().getTime());
   },
 
-  getServices() {
-    return axios.get(`${SERVICES_DATAS_URL}/all`);
+  getServices(filterTitle) {
+    let filterLine = '';
+    if (filterTitle && filterTitle !== '') {
+      filterLine = `?title=${filterTitle}`;
+    }
+    return axios.get(`${SERVICES_DATAS_URL}/all${filterLine}`);
   },
 
   deleteServiceById(id) {
