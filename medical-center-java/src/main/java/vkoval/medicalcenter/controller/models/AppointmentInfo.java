@@ -11,10 +11,11 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppointmentInfo {
+    private Long id;
     private Instant time;
     private boolean reserved;
 
     public static AppointmentInfo fromAppointment(Appointment appointment) {
-        return new AppointmentInfo(appointment.getTime(), appointment.getReserver() != null);
+        return new AppointmentInfo(appointment.getId(), appointment.getTime(), appointment.getReserver() != null);
     }
 }
