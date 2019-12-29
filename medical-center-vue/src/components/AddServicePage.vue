@@ -88,8 +88,13 @@
       },
       handlerSaveClicked() {
         this.editArea.id = new Date().getMilliseconds();
-        ServicesService.addService(this.editArea);
-        this.$router.push('/');
+        ServicesService.addService(this.editArea)
+          .then(() => {
+            this.$router.push('/');
+          })
+          .catch(() => {
+            this.$router.push('/');
+          });
       },
     },
   };

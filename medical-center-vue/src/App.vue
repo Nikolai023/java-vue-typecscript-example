@@ -33,9 +33,9 @@
         isAuthorized: AuthService.isAuthorized(),
 
         informMessage: 'Неправильный логин или пароль',
-        informMessageVisible: true,
+        informMessageVisible: false,
 
-        informationModalVisible: true,
+        informationModalVisible: false,
         informModalTitle: 'Регистрация успешна',
 
         authModalVisible: false,

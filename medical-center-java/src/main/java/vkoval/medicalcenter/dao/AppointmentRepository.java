@@ -6,14 +6,21 @@ import vkoval.medicalcenter.entity.schedule.Appointment;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Collection;
 import java.util.List;
 
 public interface AppointmentRepository extends CrudRepository<Appointment, Long> {
-    default List<Appointment> getAllByDayAndService(LocalDate date, Long serviceId) {
+    default List<Appointment> findAllByDayAndMedicalServiceId(LocalDate date, Long serviceId) {
         Instant startOfDay = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
         Instant endOfDay = date.atStartOfDay(ZoneId.systemDefault()).plusDays(1).toInstant();
-        return getAllByTimeBetweenAndMedicalServiceId(startOfDay, endOfDay, serviceId);
+        return findAllByTimeBetweenAndMedicalServiceId(startOfDay, endOfDay, serviceId);
     }
 
-    List<Appointment> getAllByTimeBetweenAndMedicalServiceId(Instant startOfDay, Instant endOfDay, Long serviceId);
+    List<Appointment> findAllByTimeBetweenAndMedicalServiceId(Instant startOfDay, Instant endOfDay, Long serviceId);
+
+    Collection<Appointment> findAllByMedicalServiceId(Long serviceId);
+
+    Collection<Appointment> findAll();
+
+    void deleteAllByMedicalServiceId(Long serviceId);
 }

@@ -89,7 +89,7 @@ export default {
   },
 
   addService(service) {
-    this.services.push(service);
+    return axios.post(`${SERVICES_DATAS_URL}`, service);
   },
 
   getPastRecords() {
@@ -109,11 +109,7 @@ export default {
   },
 
   editServiceById(id, service) {
-    this.services.forEach((item, i) => {
-      if (item.id === Number(id)) {
-        this.services[i] = Object.assign({}, service);
-      }
-    });
+    return axios.put(`${SERVICES_DATAS_URL}/${id}`, service);
   },
 
   getServiceById(id) {

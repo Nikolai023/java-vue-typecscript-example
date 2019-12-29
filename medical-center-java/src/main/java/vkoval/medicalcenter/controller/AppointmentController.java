@@ -23,6 +23,25 @@ public class AppointmentController {
         this.appointmentRepository = appointmentRepository;
     }
 
+    @GetMapping("/appointments/all")
+    public List<AppointmentInfo> getAppointmentsByDay() {
+        return appointmentRepository.findAll().stream()
+                .map(AppointmentInfo::fromAppointment)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/appointments/getByService")
+    public List<AppointmentInfo> getAppointmentsByDay(@RequestParam(value = "service_id") Long serviceId) {
+        if (!serviceRepository.existsById(serviceId)) {
+            return Collections.emptyList();
+        }
+
+        return appointmentRepository.findAllByMedicalServiceId(serviceId)
+                .stream()
+                .map(AppointmentInfo::fromAppointment)
+                .collect(Collectors.toList());
+    }
+
     @GetMapping("/appointments/getByDateAndService")
     public List<AppointmentInfo> getAppointmentsByDay(
             @RequestParam(value = "service_id") Long serviceId,
@@ -32,7 +51,7 @@ public class AppointmentController {
             return Collections.emptyList();
         }
 
-        return appointmentRepository.getAllByDayAndService(date, serviceId)
+        return appointmentRepository.findAllByDayAndMedicalServiceId(date, serviceId)
                 .stream()
                 .map(AppointmentInfo::fromAppointment)
                 .collect(Collectors.toList());
