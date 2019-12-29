@@ -71,6 +71,7 @@
             AuthenticationService.registerSuccessfulLogin(authDetails, password);
             this.informMessageVisible = false;
             this.authModalVisible = !this.authModalVisible;
+            this.isAuth = AuthenticationService.isAuthorized();
           })
           .catch((e) => {
             console.log(e);

@@ -10,7 +10,7 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
-    @Column
+    @Column(unique = true)
     private String login;
     @Column
     private String password;
