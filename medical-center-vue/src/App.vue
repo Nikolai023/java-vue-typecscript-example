@@ -4,9 +4,14 @@
             @handlerRegistryClicked="handlerRegistryClicked"
             v-bind:isAuth="isAuthorized"/>
     <!--modals-->
-    <AuthModal @handlerAuthClicked="handlerAuthClicked" v-if="authModalVisible"/>
-    <RegistryModal @handlerRegistryClicked="handlerRegistryClicked" v-if="registryModalVisible"/>
-
+    <AuthModal @handlerAuthClicked="handlerAuthClicked" v-if="authModalVisible"
+               v-bind:informTitle="informMessage"
+               v-bind:informMessageVisible="informMessageVisible"/>
+    <RegistryModal @handlerRegistryClicked="handlerRegistryClicked" v-if="registryModalVisible"
+                   v-bind:informTitle="informMessage"
+                   v-bind:informMessageVisible="informMessageVisible"/>
+    <InformationModal @handlerInformModalClicked="handlerInformModalClicked"
+                      v-if="informationModalVisible" v-bind:title="informModalTitle"/>
     <!--main-->
     <router-view/>
     <!--footer-->
@@ -20,17 +25,25 @@
   import AuthModal from '@/components/modals/AuthModal';
   import AuthService from '@/service/AuthService';
   import RegistryModal from '@/components/modals/RegistryModal';
+  import InformationModal from '@/components/modals/InformationModal';
 
   export default {
     data() {
       return {
         isAuthorized: AuthService.isAuthorized(),
 
+        informMessage: 'Неправильный логин или пароль',
+        informMessageVisible: true,
+
+        informationModalVisible: true,
+        informModalTitle: 'Регистрация успешна',
+
         authModalVisible: false,
         registryModalVisible: false,
       };
     },
     components: {
+      InformationModal,
       Header,
       Footer,
       AuthModal,
@@ -42,6 +55,9 @@
       },
       handlerRegistryClicked() {
         this.registryModalVisible = !this.registryModalVisible;
+      },
+      handlerInformModalClicked() {
+        this.informationModalVisible = !this.informationModalVisible;
       },
     },
   };

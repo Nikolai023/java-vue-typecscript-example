@@ -1,6 +1,6 @@
 export default {
   isAuthorized() {
-    return true;
+    return false;
   },
   isAdmin() {
     return true;

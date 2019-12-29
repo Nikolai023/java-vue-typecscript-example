@@ -608,7 +608,7 @@ main {
 
 .form__error {
     display: none;
-    padding: 0 5px 5px 5px;
+    padding: 5px;
     position: absolute;
     z-index: 2000;
     background: rgba(91, 96, 100, 0.8);
@@ -616,6 +616,12 @@ main {
     color: #e49696;
     top: 90%;
     left: 40px;
+}
+
+.form__error_visib {
+    display: block;
+    position: static;
+    margin-bottom: 10px;
 }
 
 .form__input:focus {

@@ -18,11 +18,24 @@
           <fieldset class="form__field">
             <input class="form__input" pattern="[A-Za-z]{0,}" placeholder="Пароль" required
                    type="password"/>
-            <span class="form__error">Пароль должен быть бла бла бла</span>
+            <span class="form__error">Пароль должен быть не менее 5 символов,
+              и содержать только латинские символы и цифры</span>
           </fieldset>
+          <span class="form__error form__error_visib" v-if="informMessageVisible">
+            {{informTitle}}
+          </span>
           <input class="btn service-card_btn" type="submit" value="Зарегистрироваться">
         </form>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    props: {
+      informTitle: String,
+      informMessageVisible: Boolean,
+    },
+  };
+</script>

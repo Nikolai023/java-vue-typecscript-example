@@ -22,9 +22,21 @@
               и содержать только латинские символы и цифры
             </span>
           </fieldset>
+          <span class="form__error form__error_visib" v-if="this.informMessageVisible">
+            {{informTitle}}
+          </span>
           <input class="btn service-card_btn" type="submit" value="Войти">
         </form>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    props: {
+      informTitle: String,
+      informMessageVisible: Boolean,
+    },
+  };
+</script>
