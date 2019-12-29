@@ -249,6 +249,9 @@ main {
     background-color: #2e3033;
     color: #7a9cb2;
 }
+.nav__link_exit:hover {
+    color: #CB6855;
+}
 
 .footer {
     background-color: #2f3235;
