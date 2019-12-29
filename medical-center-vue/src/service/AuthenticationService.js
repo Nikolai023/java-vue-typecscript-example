@@ -2,6 +2,7 @@ import axios from 'axios';
 import { API_URL } from './ApiConstants';
 
 const AUTH_URL = `${API_URL}/auth`;
+const REGISTER_URL = `${API_URL}/register`;
 const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
 const USER_NAME_SESSION_ATTRIBUTE_ADMIN_MARKER = 'isAdmin';
 const USER_NAME_SESSION_ATTRIBUTE_TOKEN = 'token';
@@ -25,6 +26,11 @@ class AuthenticationService {
     return axios.get(AUTH_URL,
       { headers: { authorization: this.createBasicAuthToken(username, password) } });
   }
+
+  registerNewUser = (username, password) => axios.post(REGISTER_URL, {
+    login: username,
+    password,
+  });
 
   createBasicAuthToken = (username, password) => `Basic ${window.btoa(`${username}:${password}`)}`;
 

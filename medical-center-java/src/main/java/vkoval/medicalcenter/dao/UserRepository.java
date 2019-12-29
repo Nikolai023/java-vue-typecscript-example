@@ -7,4 +7,6 @@ import vkoval.medicalcenter.entity.user.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
     User findByLogin(String login);
+
+    boolean existsByLogin(String login);
 }

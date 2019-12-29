@@ -70,7 +70,7 @@
           .then((authDetails) => {
             AuthenticationService.registerSuccessfulLogin(authDetails, password);
             this.informMessageVisible = false;
-            this.authModalVisible = !this.authModalVisible;
+            this.authModalVisible = false;
             this.isAuth = AuthenticationService.isAuthorized();
           })
           .catch((e) => {
@@ -80,16 +80,18 @@
           });
       },
       handlerRegistrationSubmit(login, password) {
-        console.log(`${login} ${password}`);
-
-        // если такой логин есть то делается так
-        this.informMessage = 'Такой логин существует, попробуйте выбрать другой';
-        this.informMessageVisible = true;
-
-        // если все нормально, то делать так
-        this.informMessageVisible = false;
-        this.registryModalVisible = !this.registryModalVisible;
-        this.informationModalVisible = true;
+        AuthenticationService.registerNewUser(login, password)
+          .then((response) => {
+            if (response.data !== '') {
+              this.informMessage = response.data;
+              this.informMessageVisible = true;
+              return;
+            }
+            this.informMessageVisible = false;
+            this.registryModalVisible = !this.registryModalVisible;
+            this.informationModalVisible = true;
+            this.handlerAuthSubmit(login, password);
+          });
       },
     },
   };
