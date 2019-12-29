@@ -5,10 +5,15 @@
         <div @click="handlerLogoClick" class="header__logo">Клиника</div>
         <div class="header__middle">
           <div class="search-block">
-            <label for="search" class="search-block__label">
+            <label v-if="!isSearching" for="search" class="search-block__label"
+                   @click="handlerSearchClicked(searchLine)">
               <i class="fas fa-search"/>
             </label>
-            <input id="search" type="text" class="header___search">
+            <label v-if="isSearching" for="search" class="search-block__label"
+                   @click="handlerNoSearchClicked()">
+              <i class="fas fa-times"></i>
+            </label>
+            <input id="search" type="text" class="header___search" v-model="searchLine">
           </div>
           <nav class="nav">
             <a @click.prevent="$emit('handlerAuthClicked')"
@@ -30,6 +35,13 @@
 
 <script>
   export default {
+    data() {
+      return {
+        searchLine: '',
+
+        isSearching: false,
+      };
+    },
     props: {
       isAuth: Boolean,
     },
@@ -39,6 +51,14 @@
       },
       handlerLkClicked() {
         this.$router.push('/account');
+      },
+      handlerSearchClicked(searchLine) {
+        console.log(searchLine);
+        this.isSearching = true;
+      },
+      handlerNoSearchClicked() {
+        this.isSearching = false;
+        this.searchLine = '';
       },
     },
   };

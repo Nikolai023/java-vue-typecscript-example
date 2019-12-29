@@ -191,10 +191,17 @@ main {
 
 .search-block__label {
     cursor: pointer;
+    width: 20px;
+    height: 20px;
 }
 
 .search-block__label i {
-    height: 20px;
+    font-size: 20px;
+    transition: color .1s ease-in-out;
+}
+
+.search-block__label:hover i {
+    color: #7a9cb2
 }
 
 .header___search,
