@@ -1,8 +1,8 @@
 export default {
   isAuthorized() {
-    return false;
+    return true;
   },
   isAdmin() {
-    return false;
+    return true;
   },
 };
