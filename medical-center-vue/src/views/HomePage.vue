@@ -34,11 +34,16 @@
 
 
         confirmModalVisible: false,
-        services: ServicesService.getServices(),
+        services: [],
       };
     },
     mounted() {
-
+      ServicesService.getServices()
+        .then(data => data.data)
+        .then((data) => {
+          console.log(data);
+          this.services = data;
+        });
       // fetch('https://jsonplaceholder.typicode.com/posts')
       //     .then(response => response.json())
       //     // eslint-disable-next-line no-console
@@ -54,8 +59,15 @@
         this.titleConfirm = 'Хотите удалить?';
         this.buttonTextConfirm = 'Удалить';
         this.onConfirm = () => {
-          ServicesService.deleteServiceById(id);
-          this.services = ServicesService.getServices();
+          ServicesService.deleteServiceById(id)
+            .then(() => {
+              ServicesService.getServices()
+                .then(data => data.data)
+                .then((data) => {
+                  console.log(data);
+                  this.services = data;
+                });
+            });
           this.cleanAndCloseConfirmModal();
         };
         this.onDecline = () => {

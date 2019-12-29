@@ -1,3 +1,8 @@
+import axios from 'axios';
+import { REST_URL } from './ApiConstants';
+
+const SERVICES_DATAS_URL = `${REST_URL}/service`;
+
 const sukablya = `Lorem fdsaasdfipsum dolor sit amet consectetur adipisicing elit. Dicta
         repellendus fuga sed rerum sint non amet ease in dolorem dolores iste
         harum aut ipsa error, natus
@@ -96,11 +101,11 @@ export default {
   },
 
   getServices() {
-    return this.services;
+    return axios.get(`${SERVICES_DATAS_URL}/all`);
   },
 
   deleteServiceById(id) {
-    this.services = this.services.filter(t => t.id !== id);
+    return axios.delete(`${SERVICES_DATAS_URL}/${id}`);
   },
 
   editServiceById(id, service) {
@@ -112,11 +117,7 @@ export default {
   },
 
   getServiceById(id) {
-    const idParsed = Number(id);
-    if (Number.isNaN(idParsed)) {
-      return null;
-    }
-    return this.services.find(s => s.id === Number(idParsed));
+    return axios.get(`${SERVICES_DATAS_URL}/${id}`);
   },
 
 

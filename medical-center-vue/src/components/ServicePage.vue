@@ -100,7 +100,11 @@
         onDecline: () => {
         },
 
-        service: ServicesService.getServiceById(this.$route.params.id),
+        service: {
+          title: '',
+          photo: '',
+          description: '',
+        },
         editArea: {
           title: '',
           photo: '',
@@ -112,30 +116,43 @@
       ConfirmModal,
     },
     beforeMount() {
+      ServicesService.getServiceById(this.$route.params.id)
+        .then(data => data.data)
+        .then((data) => {
+          if (!data) {
+            this.$router.push('/');
+          }
+          this.service = data;
+        })
+        .catch(() => {
+          this.$router.push('/');
+        });
       this.date = new Date();
-      this.calend = ServicesService.createCalendar(this.date.getFullYear(),
-                                                   this.date.getMonth() + 1);
+      this.calend = ServicesService.createCalendar(
+        this.date.getFullYear(),
+        this.date.getMonth() + 1,
+      );
       this.currentMonth = ServicesService.getMonthName(this.date.getMonth());
       this.currentYear = this.date.getFullYear();
-
-      if (this.service === null) {
-        this.$router.push('/');
-      }
     },
     methods: {
 
       nextMonth() {
         this.date.setMonth(this.date.getMonth() + 1);
-        this.calend = ServicesService.createCalendar(this.date.getFullYear(),
-                                                     this.date.getMonth() + 1);
+        this.calend = ServicesService.createCalendar(
+          this.date.getFullYear(),
+          this.date.getMonth() + 1,
+        );
         this.currentMonth = ServicesService.getMonthName(this.date.getMonth());
         this.currentYear = this.date.getFullYear();
       },
       prevMonth() {
         if (this.date > new Date()) {
           this.date.setMonth(this.date.getMonth() - 1);
-          this.calend = ServicesService.createCalendar(this.date.getFullYear(),
-                                                       this.date.getMonth() + 1);
+          this.calend = ServicesService.createCalendar(
+            this.date.getFullYear(),
+            this.date.getMonth() + 1,
+          );
           this.currentMonth = ServicesService.getMonthName(this.date.getMonth());
           this.currentYear = this.date.getFullYear();
         }

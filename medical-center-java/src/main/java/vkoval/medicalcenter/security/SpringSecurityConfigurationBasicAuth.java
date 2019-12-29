@@ -31,6 +31,7 @@ public class SpringSecurityConfigurationBasicAuth extends WebSecurityConfigurerA
                 .cors()
                 .and()
                 .csrf().disable()
+/*
                 .authorizeRequests()
                 // Make H2-Console non-secured; for debug purposes
                 .antMatchers("/h2-console/**").permitAll()
@@ -39,9 +40,9 @@ public class SpringSecurityConfigurationBasicAuth extends WebSecurityConfigurerA
                 .antMatchers("/**").hasAuthority("ADMIN")
                 .and()
                 .httpBasic()
-
                 // Allow pages to be loaded in frames from the same origin; needed for H2-Console
                 .and()
+*/
                 .headers()
                 .frameOptions()
                 .sameOrigin();
