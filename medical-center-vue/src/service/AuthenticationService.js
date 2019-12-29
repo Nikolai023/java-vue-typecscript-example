@@ -62,7 +62,10 @@ class AuthenticationService {
     return user !== null;
   };
 
-  isAdmin = () => sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_ADMIN_MARKER);
+  isAdmin = () => {
+    const isAdmin = sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_ADMIN_MARKER);
+    return isAdmin && isAdmin !== '';
+  };
 
   getToken = () => sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_TOKEN);
 

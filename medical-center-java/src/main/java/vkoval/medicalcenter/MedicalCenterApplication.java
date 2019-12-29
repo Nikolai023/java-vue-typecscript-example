@@ -70,7 +70,7 @@ public class MedicalCenterApplication {
         User admin = new User();
         admin.setLogin("admin");
         admin.setPassword("admin");
-        admin.setRole(Role.USER);
+        admin.setRole(Role.ADMIN);
         userRepository.save(admin);
 
         User user = new User();

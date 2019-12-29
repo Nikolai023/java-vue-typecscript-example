@@ -77,6 +77,8 @@
             this.informMessageVisible = false;
             this.authModalVisible = false;
             this.isAuth = AuthenticationService.isAuthorized();
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
           })
           .catch((e) => {
             console.log(e);
