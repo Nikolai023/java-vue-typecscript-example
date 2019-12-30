@@ -28,6 +28,7 @@
           <input class="service-page__input-title" type="text" v-else v-model="editArea.title">
           <div class="service__row">
             <div class="service-page__middle">
+              <i @click="handlerEditPhoto" v-if="isEditing" class="fas fa-pencil-alt"/>
               <img src="https://via.placeholder.com/900x750" alt="" class="service-page__img">
               <div class="service-page__description" contenteditable="false" v-if="!isEditing">
                 {{ service.description }}
@@ -169,6 +170,9 @@
       this.currentYear = this.date.getFullYear();
     },
     methods: {
+      handlerEditPhoto() {
+        alert('Нажал на редактирование фото');
+      },
       handlerSubmitAddTime() {
         // eslint-disable-next-line no-empty
         if (this.curDay !== -1 && this.timeArea) {
