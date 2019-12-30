@@ -5,7 +5,7 @@
                   v-bind:title="titleConfirm"
                   v-if="confirmModalVisible"
     />
-    <InformationModal v-bind:title="'все збс'" v-if="informationModalVisible"
+    <InformationModal v-bind:title="'Вы записались на приём.'" v-if="informationModalVisible"
                       @handlerInformModalClicked="handlerInformModalClicked"/>
     <section class="service-page">
       <div class="container">
@@ -198,10 +198,12 @@
       },
       handlerSubmitRecord() {
         if (this.curTime) {
-          this.informationModalVisible = true;
           AppointmentService.assignAppointment(
             this.curTime, this.curDay, this.currentMonth, this.currentYear, this.service.id,
-          );
+          )
+            .then(() => {
+              this.informationModalVisible = true;
+            });
         } else {
           this.cannotMakeAnAppointment = true;
         }
