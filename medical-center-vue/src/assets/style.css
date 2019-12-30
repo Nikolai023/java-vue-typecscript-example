@@ -766,3 +766,17 @@ input:invalid:not(:placeholder-shown) + .form__error {
 .service__row {
     display: flex;
 }
+
+.calcont__submit_time {
+    position: relative;
+    display: flex;
+}
+
+.time__area {
+    width: 60px;
+    margin-right: 48px;
+    padding: 0 5px;
+    color: #555;
+    background-color: #fff;
+    margin-bottom: 0;
+}

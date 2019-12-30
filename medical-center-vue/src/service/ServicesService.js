@@ -104,6 +104,15 @@ export default {
     return curDay[0].time;
   },
 
+  addRecord(time, day, mounth, year, title) {
+    alert(`Вы записались на услугу ${title} в ${time} ${day} ${mounth} ${year}`);
+  },
+
+  // eslint-disable-next-line no-unused-vars
+  addTime(time, day, mounth, year, title) {
+    alert(`Вы добавили время в ${time} ${day} ${mounth} ${year}`);
+  },
+
   getMonthName(month) {
     return monthNames[month];
   },

@@ -5,6 +5,8 @@
                   v-bind:title="titleConfirm"
                   v-if="confirmModalVisible"
     />
+    <InformationModal v-bind:title="'все збс'" v-if="informationModalVisible"
+                      @handlerInformModalClicked="handlerInformModalClicked"/>
     <section class="service-page">
       <div class="container">
         <div class="admin__panel" v-if="isAdmin">
@@ -63,7 +65,7 @@
                     <TimesData v-for="time of times" v-bind:time="time" v-bind:key="time"
                                @handleTimeClick="handleTimeClick" v-bind:curTime="curTime"/>
                   </div>
-                  <div class="calcont__submit">
+                  <div v-if="!isEditing" class="calcont__submit">
                     <input @click.prevent="handlerSubmitRecord" class="btn service-card_btn"
                            type="submit"
                            value="Записаться">
@@ -71,6 +73,20 @@
                       Для записи выберите дату и время
                     </div>
                   </div>
+                  <form @submit.prevent="handlerSubmitAddTime" v-else class="calcont__submit">
+                    <div class="calcont__submit_time">
+                      <input type="text" class="form__input time__area" pattern="[0-9]{2}:[0-9]{2}"
+                             v-model="timeArea">
+                      <span class="form__error">Время должно быть в формате чч:мм
+                      </span>
+                      <input  class="btn service-card_btn"
+                             type="submit"
+                             value="Добавить время">
+                    </div>
+                    <div class="record__error" v-if="cannotMakeAnAppointment">
+                      Выберите дату, чтобы добавить время
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -85,6 +101,7 @@
   import ServicesService from '../service/ServicesService';
   import AuthenticationService from '@/service/AuthenticationService';
   import ConfirmModal from './modals/ConfirmModal';
+  import InformationModal from './modals/InformationModal';
   import TimesData from './TimesData';
   import BodyCalendar from './BodyCalendar';
 
@@ -102,6 +119,9 @@
         curTime: '',
         cannotMakeAnAppointment: false,
 
+        timeArea: '',
+
+        informationModalVisible: false,
         confirmModalVisible: false,
         titleConfirm: '',
         buttonTextConfirm: '',
@@ -124,6 +144,7 @@
     },
     components: {
       ConfirmModal,
+      InformationModal,
       TimesData,
       BodyCalendar,
     },
@@ -148,9 +169,24 @@
       this.currentYear = this.date.getFullYear();
     },
     methods: {
-      handlerSubmitRecord() {
+      handlerSubmitAddTime() {
         // eslint-disable-next-line no-empty
+        if (this.curDay !== -1 && this.timeArea) {
+          ServicesService.addTime(this.timeArea, this.curDay, this.currentMonth, this.currentYear,
+                                  this.service.title);
+          this.timeArea = '';
+        } else {
+          this.cannotMakeAnAppointment = true;
+        }
+      },
+      handlerInformModalClicked() {
+        this.informationModalVisible = false;
+      },
+      handlerSubmitRecord() {
         if (this.curTime && (this.curDay !== -1)) {
+          this.informationModalVisible = true;
+          ServicesService.addRecord(this.curTime, this.curDay, this.currentMonth, this.currentYear,
+                                    this.service.title);
         } else {
           this.cannotMakeAnAppointment = true;
         }
