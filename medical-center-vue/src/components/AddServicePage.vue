@@ -68,12 +68,13 @@
 <script>
   import ServicesService from '../service/ServicesService';
   import AuthenticationService from '@/service/AuthenticationService';
+  import CalendarUtil from '@/components/calendar/CalendarUtil';
 
   export default {
     data() {
       return {
         isAdmin: AuthenticationService.isAdmin(),
-        calend: ServicesService.createCalendar(2019, 12),
+        calend: CalendarUtil.createCalendar(2019, 12),
         editArea: {
           title: '',
           description: '',

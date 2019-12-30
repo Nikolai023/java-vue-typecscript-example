@@ -80,7 +80,7 @@
                              v-model="timeArea">
                       <span class="form__error">Время должно быть в формате чч:мм
                       </span>
-                      <input  class="btn service-card_btn"
+                      <input class="btn service-card_btn"
                              type="submit"
                              value="Добавить время">
                     </div>
@@ -103,8 +103,10 @@
   import AuthenticationService from '@/service/AuthenticationService';
   import ConfirmModal from './modals/ConfirmModal';
   import InformationModal from './modals/InformationModal';
-  import TimesData from './TimesData';
-  import BodyCalendar from './BodyCalendar';
+  import TimesData from './calendar/TimesData';
+  import BodyCalendar from './calendar/BodyCalendar';
+  import CalendarUtil from '@/components/calendar/CalendarUtil';
+  import AppointmentService from '@/service/AppointmentService';
 
   export default {
     data() {
@@ -162,22 +164,24 @@
           this.$router.push('/');
         });
       this.date = new Date();
-      this.calendar = ServicesService.createCalendar(
+      this.calendar = CalendarUtil.createCalendar(
         this.date.getFullYear(),
         this.date.getMonth() + 1,
       );
-      this.currentMonth = ServicesService.getMonthName(this.date.getMonth());
+      this.currentMonth = CalendarUtil.getMonthName(this.date.getMonth());
       this.currentYear = this.date.getFullYear();
     },
     methods: {
       handlerEditPhoto() {
+        // eslint-disable-next-line
         alert('Нажал на редактирование фото');
       },
       handlerSubmitAddTime() {
         // eslint-disable-next-line no-empty
         if (this.curDay !== -1 && this.timeArea) {
-          ServicesService.addTime(this.timeArea, this.curDay, this.currentMonth, this.currentYear,
-                                  this.service.title);
+          AppointmentService.addTime(
+            this.timeArea, this.curDay, this.currentMonth, this.currentYear, this.service.title,
+          );
           this.timeArea = '';
         } else {
           this.cannotMakeAnAppointment = true;
@@ -189,8 +193,9 @@
       handlerSubmitRecord() {
         if (this.curTime && (this.curDay !== -1)) {
           this.informationModalVisible = true;
-          ServicesService.addRecord(this.curTime, this.curDay, this.currentMonth, this.currentYear,
-                                    this.service.title);
+          AppointmentService.addRecord(
+            this.curTime, this.curDay, this.currentMonth, this.currentYear, this.service.title,
+          );
         } else {
           this.cannotMakeAnAppointment = true;
         }
@@ -204,28 +209,28 @@
           this.cannotMakeAnAppointment = false;
           this.curTime = '';
           this.curDay = cell.day;
-          this.times = ServicesService.getTimesOnDay(cell.day,
-                                                     this.date.getMonth(),
-                                                     this.currentYear);
+          this.times = AppointmentService.getTimesOnDay(
+            cell.day, this.date.getMonth(), this.currentYear,
+          );
         }
       },
       nextMonth() {
         this.date.setMonth(this.date.getMonth() + 1);
-        this.calendar = ServicesService.createCalendar(
+        this.calendar = CalendarUtil.createCalendar(
           this.date.getFullYear(),
           this.date.getMonth() + 1,
         );
-        this.currentMonth = ServicesService.getMonthName(this.date.getMonth());
+        this.currentMonth = CalendarUtil.getMonthName(this.date.getMonth());
         this.currentYear = this.date.getFullYear();
       },
       prevMonth() {
         if (this.date > new Date()) {
           this.date.setMonth(this.date.getMonth() - 1);
-          this.calendar = ServicesService.createCalendar(
+          this.calendar = CalendarUtil.createCalendar(
             this.date.getFullYear(),
             this.date.getMonth() + 1,
           );
-          this.currentMonth = ServicesService.getMonthName(this.date.getMonth());
+          this.currentMonth = CalendarUtil.getMonthName(this.date.getMonth());
           this.currentYear = this.date.getFullYear();
         }
       },

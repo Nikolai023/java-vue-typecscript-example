@@ -19,13 +19,13 @@
 </template>
 
 <script>
-  import ServicesService from '../service/ServicesService';
   import Record from '@/components/Record';
+  import AppointmentService from '@/service/AppointmentService';
 
   export default {
     data() {
       return {
-        records: ServicesService.getRecordsByUser(),
+        records: AppointmentService.getUserAppointments(),
       };
     },
     components: {
@@ -33,13 +33,13 @@
     },
     methods: {
       clickPastRecords() {
-        this.records = ServicesService.getPastRecords();
+        this.records = AppointmentService.getPastRecords();
       },
       clickNextRecords() {
-        this.records = ServicesService.getNextRecords();
+        this.records = AppointmentService.getNextRecords();
       },
       clickAllRecords() {
-        this.records = ServicesService.getRecordsByUser();
+        this.records = AppointmentService.getUserAppointments();
       },
     },
   };
