@@ -30,9 +30,8 @@
             <div class="service-page__middle">
               <i @click="handlerEditPhoto" v-if="isEditing" class="fas fa-pencil-alt"/>
               <img src="https://via.placeholder.com/900x750" alt="" class="service-page__img">
-              <div class="service-page__description" contenteditable="false" v-if="!isEditing">
-                {{ service.description }}
-              </div>
+              <div class="service-page__description" contenteditable="false" v-if="!isEditing"
+                   v-html="service.description"/>
               <div @focusout="onDescriptionInput($event)" class="service-page__description"
                    contenteditable="true"
                    v-else

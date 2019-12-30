@@ -11,7 +11,7 @@
       <h3 class="service-card__title">
         <router-link :to="{name: 'service', params:{id: serv.id} }">{{ serv.title }}</router-link>
       </h3>
-      <div class="service-card__description">{{ serv.description }}</div>
+      <div class="service-card__description" v-html="serv.description"/>
       <router-link :to="{name: 'service', params:{id: serv.id} }"
                    class="btn service-card_btn">Подробнее
       </router-link>
