@@ -41,7 +41,7 @@ const haveRecords = [2, 5, 10];
 const times = [
   {
     day: 2,
-    time: ['12:00', '13:30', '14:00'],
+    time: ['12:00', '13:30', '14:00', '12:00', '13:30', '14:00', '12:00', '13:30', '14:00'],
   },
   {
     day: 5,
@@ -98,6 +98,7 @@ export default {
     },
   ],
 
+  // eslint-disable-next-line no-unused-vars
   getTimesOnDay(day, month, year) {
     const curDay = times.filter(t => t.day === day);
     return curDay[0].time;

@@ -320,7 +320,7 @@ main {
 .service-page__img {
     display: block;
     height: 300px;
-    width: 67%;
+    width: 643px;
     margin: 15px 0;
     object-fit: cover;
 }
@@ -330,10 +330,7 @@ main {
     border-bottom: 1px solid #b1b1b1;
     color: #555;
     line-height: 1.7;
-    position: relative;
-    top: -149px;
-    margin-bottom: -120px;
-    margin-right: 317px;
+    margin-bottom: 20px;
     text-align: justify;
     width: 643px;
 }
@@ -628,6 +625,14 @@ main {
     left: 40px;
 }
 
+.record__error {
+    background: rgba(91, 96, 100, 0.8);
+    border-radius: 4px;
+    color: #e49696;
+    margin-top: 10px;
+    padding: 5px;
+}
+
 .form__error_visib {
     display: block;
     position: static;
@@ -756,4 +761,8 @@ input:invalid:not(:placeholder-shown) + .form__error {
     color: #555;
     border: 2px solid #6c7279;
     padding: 0 5px;
+}
+
+.service__row {
+    display: flex;
 }

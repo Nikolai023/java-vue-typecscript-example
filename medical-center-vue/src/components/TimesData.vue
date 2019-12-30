@@ -1,7 +1,7 @@
 <template>
-  <span class="times__data">
+  <span class="times__data" >
     <a @click.prevent="$emit('handleTimeClick', time)"
-       class="times__data-link" href="#">{{time}}</a>
+       class="times__data-link" v-bind:class="{active: time === curTime}" href="#">{{time}}</a>
   </span>
 </template>
 
@@ -9,6 +9,7 @@
   export default {
     props: {
       time: String,
+      curTime: String,
     },
   };
 </script>
