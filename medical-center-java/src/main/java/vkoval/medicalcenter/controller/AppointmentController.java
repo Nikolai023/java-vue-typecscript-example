@@ -5,8 +5,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import vkoval.medicalcenter.controller.models.AppointmentInfo;
+import vkoval.medicalcenter.controller.models.OrderInfo;
 import vkoval.medicalcenter.dao.AppointmentRepository;
 import vkoval.medicalcenter.dao.MedicalServiceRepository;
+import vkoval.medicalcenter.dao.UserRepository;
 import vkoval.medicalcenter.entity.schedule.Appointment;
 import vkoval.medicalcenter.entity.service.MedicalService;
 import vkoval.medicalcenter.entity.user.User;
@@ -24,10 +26,12 @@ import java.util.stream.Collectors;
 public class AppointmentController {
     private MedicalServiceRepository serviceRepository;
     private AppointmentRepository appointmentRepository;
+    private UserRepository userRepository;
 
-    public AppointmentController(MedicalServiceRepository serviceRepository, AppointmentRepository appointmentRepository) {
+    public AppointmentController(MedicalServiceRepository serviceRepository, AppointmentRepository appointmentRepository, UserRepository userRepository) {
         this.serviceRepository = serviceRepository;
         this.appointmentRepository = appointmentRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/appointments/all")
@@ -101,12 +105,12 @@ public class AppointmentController {
         appointmentRepository.save(appointment);
     }
 
-    @PostMapping("/appointments/order/{id}")
+    @GetMapping("/appointments/order/{id}")
     public void orderAppointment(Authentication authentication, @PathVariable Long id) {
         if (!authentication.isAuthenticated()) {
             return;
         }
-        User currentUser = (User) authentication.getDetails();
+        User currentUser = userRepository.findByLogin((String) authentication.getPrincipal());
         Optional<Appointment> appointment = appointmentRepository.findById(id);
 
         appointment.ifPresent(a -> {
@@ -114,5 +118,22 @@ public class AppointmentController {
             appointmentRepository.save(a);
         });
 
+    }
+
+    @GetMapping("/appointments/getOrders")
+    public Iterable<OrderInfo> getUserOrders(Authentication authentication) {
+        if (!authentication.isAuthenticated()) {
+            return Collections.emptyList();
+        }
+
+        User currentUser = userRepository.findByLogin((String) authentication.getPrincipal());
+        if (currentUser == null) {
+            return Collections.emptyList();
+        }
+
+        return appointmentRepository.findAllByReserverId(currentUser.getId())
+                .stream()
+                .map(OrderInfo::fromAppointment)
+                .collect(Collectors.toList());
     }
 }

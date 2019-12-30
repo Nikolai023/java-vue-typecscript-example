@@ -25,21 +25,38 @@
   export default {
     data() {
       return {
-        records: AppointmentService.getUserAppointments(),
+        records: [],
       };
+    },
+    mounted() {
+      AppointmentService.getUserAppointments()
+        .then((data) => {
+          this.records = data;
+        });
     },
     components: {
       Record,
     },
     methods: {
-      clickPastRecords() {
-        this.records = AppointmentService.getPastRecords();
+      clickAllRecords() {
+        AppointmentService.getUserAppointments()
+          .then((data) => {
+            this.records = data.data;
+          });
       },
       clickNextRecords() {
-        this.records = AppointmentService.getNextRecords();
+        AppointmentService.getUserAppointments()
+          .then((data) => {
+            const now = new Date().getTime();
+            this.records = data.filter(r => r.record > now);
+          });
       },
-      clickAllRecords() {
-        this.records = AppointmentService.getUserAppointments();
+      clickPastRecords() {
+        AppointmentService.getUserAppointments()
+          .then((data) => {
+            const now = new Date().getTime();
+            this.records = data.filter(r => r.record <= now);
+          });
       },
     },
   };

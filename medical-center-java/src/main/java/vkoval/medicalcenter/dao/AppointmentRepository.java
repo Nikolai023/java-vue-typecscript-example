@@ -31,4 +31,6 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Long>
     Collection<Appointment> findAll();
 
     void deleteAllByMedicalServiceId(Long serviceId);
+
+    Collection<Appointment> findAllByReserverId(Long reserverId);
 }

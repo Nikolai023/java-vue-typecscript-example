@@ -87,7 +87,7 @@ public class MedicalCenterApplication {
         Appointment appointmentReserved = new Appointment();
         appointmentReserved.setMedicalService(service1);
         appointmentReserved.setTime(Instant.now());
-        appointmentReserved.setReserver(user);
+        appointmentReserved.setReserver(admin);
         appointmentRepository.save(appointmentReserved);
     }
 }

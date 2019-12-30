@@ -20,29 +20,25 @@ export default {
     },
   ],
 
-  // eslint-disable-next-line no-unused-vars
   getAvailableAppointmentsOfDay(serviceId, day, month, year) {
     return axios.get(`${APPOINTMENTS_URL}/getByDateAndServiceAvailable?service_id=${serviceId}&day=${day}&month=${month}&year=${year}`);
   },
 
   assignAppointment(appointment) {
-    // eslint-disable-next-line
-    alert(`Вы записались на услугу ${JSON.stringify(appointment)}`);
+    return axios.get(`${APPOINTMENTS_URL}/order/${appointment.id}`);
   },
 
   addAppointment(time, day, month, year, serviceId) {
     return axios.post(`${APPOINTMENTS_URL}/add?service_id=${serviceId}&day=${day}&month=${month}&year=${year}&time=${time}`);
   },
 
-
   getUserAppointments() {
-    return this.records;
-  },
-  getPastRecords() {
-    return this.records.filter(r => r.record <= new Date().getTime());
-  },
-
-  getNextRecords() {
-    return this.records.filter(r => r.record > new Date().getTime());
+    return axios.get(`${APPOINTMENTS_URL}/getOrders`)
+      .then(data => data.data)
+      .then(data => data.map((r) => {
+        // eslint-disable-next-line no-param-reassign
+        r.record = new Date(r.record);
+        return r;
+      }));
   },
 };
