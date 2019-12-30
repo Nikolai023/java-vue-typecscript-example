@@ -35,6 +35,24 @@ const monthNames = [
   'Декабрь',
 ];
 
+// записи есть на эти дни
+const haveRecords = [2, 5, 10];
+// время к врачу
+const times = [
+  {
+    day: 2,
+    time: ['12:00', '13:30', '14:00'],
+  },
+  {
+    day: 5,
+    time: ['11:00', '15:30', '18:00'],
+  },
+  {
+    day: 10,
+    time: ['10:00', '12:30', '17:00'],
+  },
+];
+
 // т.к в JS день недели начинается с воскресенья
 function getDay(date) { // получить номер дня недели, от 0 (пн) до 6 (вс)
   let day = date.getDay();
@@ -79,6 +97,11 @@ export default {
       title: 'Терапевт',
     },
   ],
+
+  getTimesOnDay(day) {
+    const curDay = times.filter(t => t.day === day);
+    return curDay[0].time;
+  },
 
   getMonthName(month) {
     return monthNames[month];
@@ -125,26 +148,30 @@ export default {
     const mon = month - 1; // месяцы в JS идут от 0 до 11, а не от 1 до 12
     const d = new Date(year, mon);
     let temp = new Date(year, mon);
+    const arr = [];
 
-    let table = '<tr>';
+    // eslint-disable-next-line no-unused-vars
     let k = 1;
     temp.setDate(d.getDate() - getDay(d) - 1);
     for (let i = 0; i < getDay(d); i += 1) {
       temp.setDate(temp.getDate() + 1);
-      table += `<td class="off"><a href="#">${temp.getDate()}</a></td>`;
+      arr.push({
+        day: temp.getDate(),
+        haveTime: false,
+      });
     }
 
     temp = new Date(year, mon);
     temp.setDate(temp.getDate() + 1);
     while (d.getMonth() === mon) {
-      table += `<td><a href="#">${d.getDate()}</a></td>`;
-
+      arr.push({
+        day: d.getDate(),
+        haveTime: haveRecords.find(item => item === d.getDate()),
+      });
       if (getDay(d) % 7 === 6) { // вс, последний день - перевод строки
-        table += '</tr>';
         // если день месяца не последний
         if (temp.getDate() > d.getDate()) {
           k += 1;
-          table += '<tr>';
         }
       }
       temp.setDate(temp.getDate() + 1);
@@ -154,17 +181,21 @@ export default {
     let daysNextMonth = 0;
     if (getDay(d) !== 0) {
       for (let i = getDay(d); i < 7; i += 1) {
-        table += `<td class="off"><a href="#" class="off">${daysNextMonth += 1}</a></td>`;
+        arr.push({
+          day: daysNextMonth += 1,
+          haveTime: false,
+        });
       }
     }
     for (let i = k; i < 6; i += 1) {
-      table += '<tr>';
       for (let j = 0; j < 7; j += 1) {
-        table += `<td class="off"><a href="#"> ${daysNextMonth += 1} </a></td>`;
+        arr.push({
+          day: daysNextMonth += 1,
+          haveTime: false,
+        });
       }
-      table += '</tr>';
     }
 
-    return table;
+    return arr;
   },
 };
