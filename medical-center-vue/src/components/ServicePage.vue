@@ -62,7 +62,7 @@
                 </table>
                 <div class="times">
                   <div class="times__inner">
-                    <TimesData v-for="time of times" v-bind:time="time" v-bind:key="time"
+                    <TimesData v-for="time of times" v-bind:time="time" v-bind:key="time.id"
                                @handleTimeClick="handleTimeClick" v-bind:curTime="curTime"/>
                   </div>
                   <div v-if="!isEditing" class="calcont__submit">
@@ -118,7 +118,7 @@
         date: new Date(),
         times: [],
         curDay: -1,
-        curTime: '',
+        curTime: {},
         cannotMakeAnAppointment: false,
 
         timeArea: '',
@@ -178,10 +178,17 @@
       handlerSubmitAddTime() {
         // eslint-disable-next-line no-empty
         if (this.curDay !== -1 && this.timeArea) {
-          AppointmentService.addTime(
-            this.timeArea, this.curDay, this.currentMonth, this.currentYear, this.service.title,
-          );
-          this.timeArea = '';
+          AppointmentService.addAppointment(
+            this.timeArea, this.curDay, this.date.getMonth() + 1, this.currentYear, this.service.id,
+          )
+            .then(() => AppointmentService.getAvailableAppointmentsOfDay(
+              this.$route.params.id, this.curDay,
+              this.date.getMonth() + 1, this.currentYear,
+            )
+              .then((data) => {
+                this.times = data.data;
+                this.timeArea = '';
+              }));
         } else {
           this.cannotMakeAnAppointment = true;
         }
@@ -190,10 +197,10 @@
         this.informationModalVisible = false;
       },
       handlerSubmitRecord() {
-        if (this.curTime && (this.curDay !== -1)) {
+        if (this.curTime) {
           this.informationModalVisible = true;
-          AppointmentService.addRecord(
-            this.curTime, this.curDay, this.currentMonth, this.currentYear, this.service.title,
+          AppointmentService.assignAppointment(
+            this.curTime, this.curDay, this.currentMonth, this.currentYear, this.service.id,
           );
         } else {
           this.cannotMakeAnAppointment = true;
@@ -206,11 +213,14 @@
       handlerTdClicked(cell) {
         if (cell.haveTime) {
           this.cannotMakeAnAppointment = false;
-          this.curTime = '';
+          this.curTime = {};
           this.curDay = cell.day;
-          this.times = AppointmentService.getTimesOnDay(
-            cell.day, this.date.getMonth(), this.currentYear,
-          );
+          AppointmentService.getAvailableAppointmentsOfDay(
+            this.$route.params.id, cell.day, this.date.getMonth() + 1, this.currentYear,
+          )
+            .then((data) => {
+              this.times = data.data;
+            });
         }
       },
       nextMonth() {

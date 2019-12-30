@@ -21,7 +21,8 @@ function getDay(date) { // получить номер дня недели, от
 }
 
 // записи есть на эти дни
-const haveRecords = [2, 5, 10];
+const haveRecords = Array.from(Array(32)
+  .keys());
 
 export default {
   getMonthName(month) {

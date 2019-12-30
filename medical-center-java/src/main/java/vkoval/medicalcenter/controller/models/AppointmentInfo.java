@@ -5,17 +5,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import vkoval.medicalcenter.entity.schedule.Appointment;
 
-import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppointmentInfo {
+    private static final DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern("HH:mm")
+                    .withZone(ZoneId.systemDefault());
+
     private Long id;
-    private Instant time;
-    private boolean reserved;
+    private String time;
 
     public static AppointmentInfo fromAppointment(Appointment appointment) {
-        return new AppointmentInfo(appointment.getId(), appointment.getTime(), appointment.getReserver() != null);
+        return new AppointmentInfo(appointment.getId(), formatter.format(appointment.getTime()));
     }
 }

@@ -1,18 +1,9 @@
+import axios from 'axios';
+import { REST_URL } from './ApiConstants';
+
+const APPOINTMENTS_URL = `${REST_URL}/appointments`;
+
 // время к врачу
-const times = [
-  {
-    day: 2,
-    time: ['12:00', '13:30', '14:00', '12:00', '13:30', '14:00', '12:00', '13:30', '14:00'],
-  },
-  {
-    day: 5,
-    time: ['11:00', '15:30', '18:00'],
-  },
-  {
-    day: 10,
-    time: ['10:00', '12:30', '17:00'],
-  },
-];
 export default {
   records: [
     {
@@ -30,21 +21,17 @@ export default {
   ],
 
   // eslint-disable-next-line no-unused-vars
-  getTimesOnDay(day, month, year) {
-    const curDay = times.filter(t => t.day === day);
-    return curDay[0].time;
+  getAvailableAppointmentsOfDay(serviceId, day, month, year) {
+    return axios.get(`${APPOINTMENTS_URL}/getByDateAndServiceAvailable?service_id=${serviceId}&day=${day}&month=${month}&year=${year}`);
   },
 
-  addRecord(time, day, month, year, title) {
+  assignAppointment(appointment) {
     // eslint-disable-next-line
-    alert(`Вы записались на услугу ${title} в ${time} ${day} ${month} ${year}`);
+    alert(`Вы записались на услугу ${JSON.stringify(appointment)}`);
   },
 
-  // eslint-disable-next-line no-unused-vars
-  addTime(time, day, month, year, title) {
-    console.log(`${time} ${day} ${month} ${year} ${title}`);
-    // eslint-disable-next-line
-    alert(`Вы добавили время в ${time} ${day} ${month} ${year}`);
+  addAppointment(time, day, month, year, serviceId) {
+    return axios.post(`${APPOINTMENTS_URL}/add?service_id=${serviceId}&day=${day}&month=${month}&year=${year}&time=${time}`);
   },
 
 
