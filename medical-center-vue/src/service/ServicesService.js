@@ -98,7 +98,7 @@ export default {
     },
   ],
 
-  getTimesOnDay(day) {
+  getTimesOnDay(day, month, year) {
     const curDay = times.filter(t => t.day === day);
     return curDay[0].time;
   },

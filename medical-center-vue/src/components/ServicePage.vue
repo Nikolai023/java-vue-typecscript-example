@@ -47,181 +47,223 @@
                 <tbody>
                 <tr>
                   <td @click="handlerTdClicked(calend[0])"
-                      v-bind:class="{off: !calend[0].haveTime}">
+                      v-bind:class="{off: !calend[0].haveTime,
+                      active: curday === calend[0].day && (calend[0].haveTime) }">
                     <a href="#">{{calend[0].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[1])"
-                      v-bind:class="{off: !calend[1].haveTime}">
+                      v-bind:class="{off: !calend[1].haveTime,
+                      active: curday === calend[1].day && (calend[1].haveTime) }">
                     <a href="#">{{calend[1].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[2])"
-                      v-bind:class="{off: !calend[2].haveTime}">
+                      v-bind:class="{off: !calend[2].haveTime,
+                      active: curday === calend[2].day && (calend[2].haveTime) }">
                     <a href="#">{{calend[2].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[3])"
-                      v-bind:class="{off: !calend[3].haveTime}">
+                      v-bind:class="{off: !calend[3].haveTime,
+                      active: curday === calend[3].day && (calend[3].haveTime) }">
                     <a href="#">{{calend[3].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[4])"
-                      v-bind:class="{off: !calend[4].haveTime}">
+                      v-bind:class="{off: !calend[4].haveTime,
+                      active: curday === calend[4].day && (calend[4].haveTime) }">
                     <a href="#">{{calend[4].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[5])"
-                      v-bind:class="{off: !calend[5].haveTime}">
+                      v-bind:class="{off: !calend[5].haveTime,
+                      active: curday === calend[5].day && (calend[5].haveTime) }">
                     <a href="#">{{calend[5].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[6])"
-                      v-bind:class="{off: !calend[6].haveTime}">
+                      v-bind:class="{off: !calend[6].haveTime,
+                      active: curday === calend[6].day && (calend[6].haveTime) }">
                     <a href="#">{{calend[6].day}}</a>
                   </td>
                 </tr>
                 <tr>
                   <td @click="handlerTdClicked(calend[7])"
-                      v-bind:class="{off: !calend[7].haveTime}">
+                      v-bind:class="{off: !calend[7].haveTime,
+                      active: curday === calend[7].day && (calend[7].haveTime) }">
                     <a href="#">{{calend[7].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[8])"
-                      v-bind:class="{off: !calend[8].haveTime}">
+                      v-bind:class="{off: !calend[8].haveTime,
+                      active: curday === calend[8].day && (calend[8].haveTime) }">
                     <a href="#">{{calend[8].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[9])"
-                      v-bind:class="{off: !calend[9].haveTime}">
+                      v-bind:class="{off: !calend[9].haveTime,
+                      active: curday === calend[9].day && (calend[9].haveTime) }">
                     <a href="#">{{calend[9].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[10])"
-                      v-bind:class="{off: !calend[10].haveTime}">
+                      v-bind:class="{off: !calend[10].haveTime,
+                      active: curday === calend[10].day && (calend[10].haveTime) }">
                     <a href="#">{{calend[10].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[11])"
-                      v-bind:class="{off: !calend[11].haveTime}">
+                      v-bind:class="{off: !calend[11].haveTime,
+                      active: curday === calend[11].day && (calend[11].haveTime) }">
                     <a href="#">{{calend[11].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[12])"
-                      v-bind:class="{off: !calend[12].haveTime}">
+                      v-bind:class="{off: !calend[12].haveTime,
+                      active: curday === calend[12].day && (calend[12].haveTime) }">
                     <a href="#">{{calend[12].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[13])"
-                      v-bind:class="{off: !calend[13].haveTime}">
+                      v-bind:class="{off: !calend[13].haveTime,
+                      active: curday === calend[13].day && (calend[13].haveTime) }">
                     <a href="#">{{calend[13].day}}</a>
                   </td>
                 </tr>
                 <tr>
                   <td @click="handlerTdClicked(calend[14])"
-                      v-bind:class="{off: !calend[14].haveTime}">
+                      v-bind:class="{off: !calend[14].haveTime,
+                      active: curday === calend[14].day && (calend[14].haveTime) }">
                     <a href="#">{{calend[14].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[15])"
-                      v-bind:class="{off: !calend[15].haveTime}">
+                      v-bind:class="{off: !calend[15].haveTime,
+                      active: curday === calend[15].day && (calend[15].haveTime) }">
                     <a href="#">{{calend[15].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[16])"
-                      v-bind:class="{off: !calend[16].haveTime}">
+                      v-bind:class="{off: !calend[16].haveTime,
+                      active: curday === calend[16].day && (calend[16].haveTime) }">
                     <a href="#">{{calend[16].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[17])"
-                      v-bind:class="{off: !calend[17].haveTime}">
+                      v-bind:class="{off: !calend[17].haveTime,
+                      active: curday === calend[17].day && (calend[17].haveTime) }">
                     <a href="#">{{calend[17].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[18])"
-                      v-bind:class="{off: !calend[18].haveTime}">
+                      v-bind:class="{off: !calend[18].haveTime,
+                      active: curday === calend[18].day && (calend[18].haveTime) }">
                     <a href="#">{{calend[18].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[19])"
-                      v-bind:class="{off: !calend[19].haveTime}">
+                      v-bind:class="{off: !calend[19].haveTime,
+                      active: curday === calend[19].day && (calend[19].haveTime) }">
                     <a href="#">{{calend[19].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[20])"
-                      v-bind:class="{off: !calend[20].haveTime}">
+                      v-bind:class="{off: !calend[20].haveTime,
+                      active: curday === calend[20].day && (calend[20].haveTime) }">
                     <a href="#">{{calend[20].day}}</a>
                   </td>
                 </tr>
                 <tr>
                   <td @click="handlerTdClicked(calend[21])"
-                      v-bind:class="{off: !calend[21].haveTime}">
+                      v-bind:class="{off: !calend[21].haveTime,
+                      active: curday === calend[21].day && (calend[21].haveTime) }">
                     <a href="#">{{calend[21].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[22])"
-                      v-bind:class="{off: !calend[22].haveTime}">
+                      v-bind:class="{off: !calend[22].haveTime,
+                      active: curday === calend[22].day && (calend[22].haveTime) }">
                     <a href="#">{{calend[22].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[23])"
-                      v-bind:class="{off: !calend[23].haveTime}">
+                      v-bind:class="{off: !calend[23].haveTime,
+                      active: curday === calend[23].day && (calend[23].haveTime) }">
                     <a href="#">{{calend[23].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[24])"
-                      v-bind:class="{off: !calend[24].haveTime}">
+                      v-bind:class="{off: !calend[24].haveTime,
+                      active: curday === calend[24].day && (calend[24].haveTime) }">
                     <a href="#">{{calend[24].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[25])"
-                      v-bind:class="{off: !calend[25].haveTime}">
+                      v-bind:class="{off: !calend[25].haveTime,
+                      active: curday === calend[25].day && (calend[25].haveTime) }">
                     <a href="#">{{calend[25].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[26])"
-                      v-bind:class="{off: !calend[26].haveTime}">
+                      v-bind:class="{off: !calend[26].haveTime,
+                      active: curday === calend[26].day && (calend[26].haveTime) }">
                     <a href="#">{{calend[26].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[27])"
-                      v-bind:class="{off: !calend[27].haveTime}">
+                      v-bind:class="{off: !calend[27].haveTime,
+                      active: curday === calend[27].day && (calend[27].haveTime) }">
                     <a href="#">{{calend[27].day}}</a>
                   </td>
                 </tr>
                 <tr>
                   <td @click="handlerTdClicked(calend[28])"
-                      v-bind:class="{off: !calend[28].haveTime}">
+                      v-bind:class="{off: !calend[28].haveTime,
+                      active: curday === calend[28].day && (calend[28].haveTime) }">
                     <a href="#">{{calend[28].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[29])"
-                      v-bind:class="{off: !calend[29].haveTime}">
+                      v-bind:class="{off: !calend[29].haveTime,
+                      active: curday === calend[29].day && (calend[29].haveTime) }">
                     <a href="#">{{calend[29].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[30])"
-                      v-bind:class="{off: !calend[30].haveTime}">
+                      v-bind:class="{off: !calend[30].haveTime,
+                      active: curday === calend[30].day && (calend[30].haveTime) }">
                     <a href="#">{{calend[30].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[31])"
-                      v-bind:class="{off: !calend[31].haveTime}">
+                      v-bind:class="{off: !calend[31].haveTime,
+                      active: curday === calend[31].day && (calend[31].haveTime) }">
                     <a href="#">{{calend[31].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[32])"
-                      v-bind:class="{off: !calend[32].haveTime}">
+                      v-bind:class="{off: !calend[32].haveTime,
+                      active: curday === calend[32].day && (calend[32].haveTime) }">
                     <a href="#">{{calend[32].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[33])"
-                      v-bind:class="{off: !calend[33].haveTime}">
+                      v-bind:class="{off: !calend[33].haveTime,
+                      active: curday === calend[33].day && (calend[33].haveTime) }">
                     <a href="#">{{calend[33].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[34])"
-                      v-bind:class="{off: !calend[34].haveTime}">
+                      v-bind:class="{off: !calend[34].haveTime,
+                      active: curday === calend[34].day && (calend[34].haveTime) }">
                     <a href="#">{{calend[34].day}}</a>
                   </td>
                 </tr>
                 <tr>
                   <td @click="handlerTdClicked(calend[35])"
-                      v-bind:class="{off: !calend[35].haveTime}">
+                      v-bind:class="{off: !calend[35].haveTime,
+                      active: curday === calend[35].day && (calend[35].haveTime) }">
                     <a href="#">{{calend[35].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[36])"
-                      v-bind:class="{off: !calend[36].haveTime}">
+                      v-bind:class="{off: !calend[36].haveTime,
+                      active: curday === calend[36].day && (calend[36].haveTime) }">
                     <a href="#">{{calend[36].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[37])"
-                      v-bind:class="{off: !calend[37].haveTime}">
+                      v-bind:class="{off: !calend[37].haveTime,
+                      active: curday === calend[37].day && (calend[37].haveTime) }">
                     <a href="#">{{calend[37].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[38])"
-                      v-bind:class="{off: !calend[38].haveTime}">
+                      v-bind:class="{off: !calend[38].haveTime,
+                      active: curday === calend[38].day && (calend[38].haveTime) }">
                     <a href="#">{{calend[38].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[39])"
-                      v-bind:class="{off: !calend[39].haveTime}">
+                      v-bind:class="{off: !calend[39].haveTime,
+                      active: curday === calend[39].day && (calend[39].haveTime) }">
                     <a href="#">{{calend[39].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[40])"
-                      v-bind:class="{off: !calend[40].haveTime}">
+                      v-bind:class="{off: !calend[40].haveTime,
+                      active: curday === calend[40].day && (calend[40].haveTime) }">
                     <a href="#">{{calend[40].day}}</a>
                   </td>
                   <td @click="handlerTdClicked(calend[41])"
-                      v-bind:class="{off: !calend[41].haveTime}">
+                      v-bind:class="{off: !calend[41].haveTime,
+                      active: curday === calend[41].day && (calend[41].haveTime) }">
                     <a href="#">{{calend[41].day}}</a>
                   </td>
                 </tr>
@@ -230,7 +272,7 @@
               <div class="times">
                 <div class="times__inner">
                   <TimesData v-for="time of times" v-bind:time="time" v-bind:key="time"
-                    @handleTimeClick="handleTimeClick"/>
+                             @handleTimeClick="handleTimeClick"/>
                 </div>
                 <div class="calcont__submit">
                   <input class="btn service-card_btn" type="submit" value="Записаться">
@@ -268,6 +310,7 @@
         calend: [],
         date: new Date(),
         times: [],
+        curday: -1,
 
         confirmModalVisible: false,
         titleConfirm: '',
@@ -319,7 +362,9 @@
       },
       handlerTdClicked(cell) {
         if (cell.haveTime) {
-          this.times = ServicesService.getTimesOnDay(cell.day);
+          this.curday = cell.day;
+          this.times = ServicesService.getTimesOnDay(cell.day, this.date.getMonth(),
+                                                     this.currentYear);
         }
       },
 
