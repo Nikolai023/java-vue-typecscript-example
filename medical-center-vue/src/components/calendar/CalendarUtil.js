@@ -30,7 +30,7 @@ export default {
     const mon = month - 1; // месяцы в JS идут от 0 до 11, а не от 1 до 12
     const d = new Date(year, mon);
     let temp = new Date(year, mon);
-    AppointmentService.getMonthAvailableDays(year, month, serviceId)
+    return AppointmentService.getMonthAvailableDays(year, month, serviceId)
       .then(data => data.data)
       .then((haveRecords) => {
         const arr = [];
@@ -48,9 +48,10 @@ export default {
         temp = new Date(year, mon);
         temp.setDate(temp.getDate() + 1);
         while (d.getMonth() === mon) {
+          console.log(haveRecords);
           arr.push({
             day: d.getDate(),
-            haveTime: haveRecords.find(item => item === d.getDate()),
+            haveTime: haveRecords.includes(d.getDate()),
           });
           if (getDay(d) % 7 === 6) { // вс, последний день - перевод строки
             // если день месяца не последний
