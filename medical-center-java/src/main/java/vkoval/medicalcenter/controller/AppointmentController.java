@@ -89,7 +89,7 @@ public class AppointmentController {
 
     @GetMapping("/appointments/order/{id}")
     public void orderAppointment(Authentication authentication, @PathVariable Long id) {
-        if (!authentication.isAuthenticated()) {
+        if (authentication == null || !authentication.isAuthenticated()) {
             return;
         }
         User currentUser = userRepository.findByLogin((String) authentication.getPrincipal());
