@@ -163,10 +163,12 @@
           this.$router.push('/');
         });
       this.date = new Date();
-      this.calendar = CalendarUtil.createCalendar(
-        this.date.getFullYear(),
-        this.date.getMonth() + 1,
-      );
+      CalendarUtil.createCalendar(
+        this.date.getFullYear(), this.date.getMonth() + 1, this.$route.params.id,
+      )
+        .then((array) => {
+          this.calendar = array;
+        });
       this.currentMonth = CalendarUtil.getMonthName(this.date.getMonth());
       this.currentYear = this.date.getFullYear();
     },
@@ -227,20 +229,24 @@
       },
       nextMonth() {
         this.date.setMonth(this.date.getMonth() + 1);
-        this.calendar = CalendarUtil.createCalendar(
-          this.date.getFullYear(),
-          this.date.getMonth() + 1,
-        );
+        CalendarUtil.createCalendar(
+          this.date.getFullYear(), this.date.getMonth() + 1, this.$route.params.id,
+        )
+          .then((array) => {
+            this.calendar = array;
+          });
         this.currentMonth = CalendarUtil.getMonthName(this.date.getMonth());
         this.currentYear = this.date.getFullYear();
       },
       prevMonth() {
         if (this.date > new Date()) {
           this.date.setMonth(this.date.getMonth() - 1);
-          this.calendar = CalendarUtil.createCalendar(
-            this.date.getFullYear(),
-            this.date.getMonth() + 1,
-          );
+          CalendarUtil.createCalendar(
+            this.date.getFullYear(), this.date.getMonth() + 1, this.$route.params.id,
+          )
+            .then((array) => {
+              this.calendar = array;
+            });
           this.currentMonth = CalendarUtil.getMonthName(this.date.getMonth());
           this.currentYear = this.date.getFullYear();
         }

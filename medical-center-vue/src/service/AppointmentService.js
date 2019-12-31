@@ -41,4 +41,9 @@ export default {
         return r;
       }));
   },
+
+  getMonthAvailableDays(year, month, serviceId) {
+    console.log(`${serviceId} ${month} ${year}`);
+    return axios.get(`${APPOINTMENTS_URL}/monthAvailability?service_id=${serviceId}&month=${month}&year=${year}`);
+  },
 };

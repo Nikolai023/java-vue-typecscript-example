@@ -1,6 +1,5 @@
 package vkoval.medicalcenter.controller;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -48,21 +45,6 @@ public class AppointmentController {
         }
 
         return appointmentRepository.findAllByMedicalServiceId(serviceId)
-                .stream()
-                .map(AppointmentInfo::fromAppointment)
-                .collect(Collectors.toList());
-    }
-
-    @GetMapping("/appointments/getByDateAndService")
-    public List<AppointmentInfo> getAppointmentsByDay(
-            @RequestParam(value = "service_id") Long serviceId,
-            @RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
-    ) {
-        if (!serviceRepository.existsById(serviceId)) {
-            return Collections.emptyList();
-        }
-
-        return appointmentRepository.findAllByDayAndMedicalServiceId(date, serviceId)
                 .stream()
                 .map(AppointmentInfo::fromAppointment)
                 .collect(Collectors.toList());
@@ -135,5 +117,30 @@ public class AppointmentController {
                 .stream()
                 .map(OrderInfo::fromAppointment)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/appointments/monthAvailability")
+    public Collection<Integer> getUserOrders(@RequestParam(value = "service_id") Long serviceId,
+                                             @RequestParam Integer year,
+                                             @RequestParam Integer month) {
+        if (serviceId == null || year == null || month == null) {
+            return Collections.emptyList();
+        }
+        Optional<MedicalService> medicalService = serviceRepository.findById(serviceId);
+        if (medicalService.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        int monthLength = LocalDate.of(year, month, 1).lengthOfMonth();
+        Set<Integer> days = new HashSet<>();
+        for (int dayNum = 1; dayNum <= monthLength; dayNum++) {
+            LocalDate day = LocalDate.of(year, month, dayNum);
+            boolean dayAvailable =
+                    !appointmentRepository.findByDayAndMedicalServiceIdAAndReserverIsNull(day, serviceId).isEmpty();
+            if (dayAvailable) {
+                days.add(dayNum);
+            }
+        }
+        return days;
     }
 }
