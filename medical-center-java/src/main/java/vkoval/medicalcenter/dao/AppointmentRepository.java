@@ -10,19 +10,11 @@ import java.util.Collection;
 import java.util.List;
 
 public interface AppointmentRepository extends CrudRepository<Appointment, Long> {
-    default List<Appointment> findAllByDayAndMedicalServiceId(LocalDate date, Long serviceId) {
-        Instant startOfDay = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
-        Instant endOfDay = date.atStartOfDay(ZoneId.systemDefault()).plusDays(1).toInstant();
-        return findAllByTimeBetweenAndMedicalServiceId(startOfDay, endOfDay, serviceId);
-    }
-
     default List<Appointment> findByDayAndMedicalServiceIdAAndReserverIsNull(LocalDate date, Long serviceId) {
         Instant startOfDay = date.atStartOfDay(ZoneId.systemDefault()).toInstant();
         Instant endOfDay = date.atStartOfDay(ZoneId.systemDefault()).plusDays(1).toInstant();
         return findAllByTimeBetweenAndMedicalServiceIdAndReserverIsNull(startOfDay, endOfDay, serviceId);
     }
-
-    List<Appointment> findAllByTimeBetweenAndMedicalServiceId(Instant startOfDay, Instant endOfDay, Long serviceId);
 
     List<Appointment> findAllByTimeBetweenAndMedicalServiceIdAndReserverIsNull(Instant startOfDay, Instant endOfDay, Long serviceId);
 

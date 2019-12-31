@@ -13,7 +13,7 @@
           <input class="service-page__input-title" type="text" v-model="editArea.title">
           <div class="service-page__middle pos__rel">
             <i @click="handlerEditPhoto" class="fas fa-pencil-alt"/>
-            <img :src="getImgUrl(editArea.photo)" alt="" class="service-page__img">
+            <img :src="getImgUrl(editArea.image)" alt="" class="service-page__img">
             <div @focusout="onDescriptionInput($event)"
                  class="service-page__description"
                  contenteditable="true"
@@ -39,7 +39,7 @@
         editArea: {
           title: '',
           description: '',
-          photo: 'placeholder.png',
+          image: 'placeholder.png',
           id: '',
         },
       };
@@ -56,7 +56,7 @@
         return require(`../../public/static/${name}`);
       },
       handlerImgModalSubmit(ulrImg) {
-        this.editArea.photo = ulrImg;
+        this.editArea.image = ulrImg;
         this.ImgUrlModalVisible = false;
       },
       handlerImgModalClose() {

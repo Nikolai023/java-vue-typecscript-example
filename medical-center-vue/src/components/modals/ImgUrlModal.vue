@@ -14,7 +14,7 @@
           <fieldset class="form__field">
             <input class="form__input" placeholder="" required
                    type="text" v-model="name"/>
-            <span class="form__error">Логин должен содержать только латинские символы</span>
+            <span class="form__error">Введите имя изображения например name.png</span>
           </fieldset>
 
           <input class="btn service-card_btn" type="submit" value="ОК">
