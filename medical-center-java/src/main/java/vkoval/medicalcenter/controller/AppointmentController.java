@@ -116,6 +116,7 @@ public class AppointmentController {
         return appointmentRepository.findAllByReserverId(currentUser.getId())
                 .stream()
                 .map(OrderInfo::fromAppointment)
+                .sorted(Comparator.comparing(OrderInfo::getRecord))
                 .collect(Collectors.toList());
     }
 

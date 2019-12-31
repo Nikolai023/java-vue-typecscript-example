@@ -41,7 +41,7 @@
       clickAllRecords() {
         AppointmentService.getUserAppointments()
           .then((data) => {
-            this.records = data.data;
+            this.records = data;
           });
       },
       clickNextRecords() {
