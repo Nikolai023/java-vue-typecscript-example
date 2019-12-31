@@ -6,7 +6,7 @@
          v-if="isAdmin">
         <i class="far fa-times-circle"/></a>
     </div>
-    <img :src="serv.photo" alt="" class="service-card__img">
+    <img :src="getImgUrl(serv.image)" alt="" class="service-card__img">
     <div class="service-card__info">
       <h3 class="service-card__title">
         <router-link :to="{name: 'service', params:{id: serv.id} }">{{ serv.title }}</router-link>
@@ -29,6 +29,12 @@
         required: true,
       },
       isAdmin: AuthenticationService.isAdmin(),
+    },
+    methods: {
+      getImgUrl(name) {
+        // eslint-disable-next-line global-require,import/no-dynamic-require
+        return require(`../../public/static/${name}`);
+      },
     },
   };
 </script>

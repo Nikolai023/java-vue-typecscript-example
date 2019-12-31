@@ -1,5 +1,7 @@
 <template>
   <main>
+    <ImgUrlModal v-if="ImgUrlModalVisible" @handlerImgModalClose="handlerImgModalClose"
+                 @handlerImgModalSubmit="handlerImgModalSubmit"/>
     <ConfirmModal v-bind:buttonText="buttonTextConfirm" v-bind:onConfirm="onConfirm"
                   v-bind:onDecline="onDecline"
                   v-bind:title="titleConfirm"
@@ -29,7 +31,9 @@
           <div class="service__row">
             <div class="service-page__middle">
               <i @click="handlerEditPhoto" v-if="isEditing" class="fas fa-pencil-alt"/>
-              <img src="https://via.placeholder.com/900x750" alt="" class="service-page__img">
+              <img v-if="!isEditing" :src="getImgUrl(service.image)" alt=""
+                   class="service-page__img">
+              <img v-else :src="getImgUrl(editArea.image)" alt="" class="service-page__img">
               <div class="service-page__description" contenteditable="false" v-if="!isEditing"
                    v-html="service.description"/>
               <div @focusout="onDescriptionInput($event)" class="service-page__description"
@@ -68,13 +72,17 @@
                   </div>
                   <div v-if="!isEditing" class="calcont__submit">
                     <input @click.prevent="handlerSubmitRecord" class="btn service-card_btn"
-                           type="submit"
+                           type="submit" v-if="isAuth"
                            value="Записаться">
+                    <div class="record__error" v-if="!isAuth">
+                      Авторизуйтесь чтобы записаться
+                    </div>
                     <div class="record__error" v-if="cannotMakeAnAppointment">
                       Для записи выберите дату и время
                     </div>
                   </div>
-                  <form @submit.prevent="handlerSubmitAddTime" v-else class="calcont__submit">
+                  <form @submit.prevent="handlerSubmitAddTime" v-if="isEditing"
+                        class="calcont__submit">
                     <div class="calcont__submit_time">
                       <input type="text" class="form__input time__area" pattern="[0-9]{2}:[0-9]{2}"
                              v-model="timeArea">
@@ -107,24 +115,27 @@
   import BodyCalendar from './calendar/BodyCalendar';
   import CalendarUtil from '@/components/calendar/CalendarUtil';
   import AppointmentService from '@/service/AppointmentService';
+  import ImgUrlModal from './modals/ImgUrlModal';
 
   export default {
     data() {
       return {
         isEditing: false,
         isAdmin: AuthenticationService.isAdmin(),
+        isAuth: AuthenticationService.isAuthorized(),
         currentMonth: 0,
         currentYear: 0,
         calendar: [],
         date: new Date(),
         times: [],
         curDay: -1,
-        curTime: {},
-        cannotMakeAnAppointment: true,
+        curTime: '',
+        cannotMakeAnAppointment: false,
 
         timeArea: '',
 
         informationModalVisible: false,
+        ImgUrlModalVisible: false,
         confirmModalVisible: false,
         titleConfirm: '',
         buttonTextConfirm: '',
@@ -135,12 +146,12 @@
 
         service: {
           title: '',
-          photo: '',
+          image: '',
           description: '',
         },
         editArea: {
           title: '',
-          photo: '',
+          image: '',
           description: '',
         },
       };
@@ -150,6 +161,7 @@
       InformationModal,
       TimesData,
       BodyCalendar,
+      ImgUrlModal,
     },
     beforeMount() {
       ServicesService.getServiceById(this.$route.params.id)
@@ -159,6 +171,9 @@
             this.$router.push('/');
           }
           this.service = data;
+          // /////////////////////////////////////////////////////////
+          console.log(`фото ${this.service.image}`);
+          // this.service.image = '123.jpg';
         })
         .catch(() => {
           this.$router.push('/');
@@ -174,12 +189,21 @@
       this.currentYear = this.date.getFullYear();
     },
     methods: {
+      handlerImgModalSubmit(ulrImg) {
+        this.editArea.image = ulrImg;
+        this.ImgUrlModalVisible = false;
+      },
+      handlerImgModalClose() {
+        this.ImgUrlModalVisible = false;
+      },
+      getImgUrl(name) {
+        // eslint-disable-next-line global-require,import/no-dynamic-require
+        return require(`../../public/static/${name}`);
+      },
       handlerEditPhoto() {
-        // eslint-disable-next-line
-        alert('Нажал на редактирование фото');
+        this.ImgUrlModalVisible = true;
       },
       handlerSubmitAddTime() {
-        // eslint-disable-next-line no-empty
         if (this.curDay !== -1 && this.timeArea) {
           AppointmentService.addAppointment(
             this.timeArea, this.curDay, this.date.getMonth() + 1, this.currentYear, this.service.id,
@@ -215,12 +239,11 @@
         this.curTime = time;
         this.cannotMakeAnAppointment = false;
       },
-      handlerTdClicked(cell) {
-        console.log(this.isEditing);
-        console.log(cell.day);
-        if (cell.haveTime || this.isEditing) {
+      handlerTdClicked(cell, varia) {
+        console.log(!varia);
+        if (cell.haveTime || !varia) {
           this.cannotMakeAnAppointment = false;
-          this.curTime = {};
+          this.curTime = '';
           this.curDay = cell.day;
           AppointmentService.getAvailableAppointmentsOfDay(
             this.$route.params.id, cell.day, this.date.getMonth() + 1, this.currentYear,
@@ -271,6 +294,7 @@
         this.buttonTextConfirm = 'Сохранить';
         this.onConfirm = () => {
           this.service = Object.assign({}, this.editArea);
+          console.log(JSON.stringify(this.service));
           this.isEditing = false;
           this.cleanAndCloseConfirmModal();
         };

@@ -1,10 +1,7 @@
 <template>
   <main v-if="isAdmin">
-    <!--    <ConfirmModal v-if="confirmModalVisible" v-bind:title="titleConfirm"-->
-    <!--                  v-bind:onConfirm="onConfirm"-->
-    <!--                  v-bind:onDecline="onDecline"-->
-    <!--                  v-bind:buttonText="buttonTextConfirm"-->
-    <!--    />-->
+    <ImgUrlModal v-if="ImgUrlModalVisible" @handlerImgModalClose="handlerImgModalClose"
+                 @handlerImgModalSubmit="handlerImgModalSubmit"/>
     <section class="service-page">
       <div class="container">
         <div class="admin__panel">
@@ -14,8 +11,9 @@
         </div>
         <div class="service-page__inner">
           <input class="service-page__input-title" type="text" v-model="editArea.title">
-          <div class="service-page__middle">
-            <img :src="editArea.photo" alt="" class="service-page__img">
+          <div class="service-page__middle pos__rel">
+            <i @click="handlerEditPhoto" class="fas fa-pencil-alt"/>
+            <img :src="getImgUrl(editArea.photo)" alt="" class="service-page__img">
             <div @focusout="onDescriptionInput($event)"
                  class="service-page__description"
                  contenteditable="true"
@@ -31,20 +29,39 @@
 <script>
   import ServicesService from '../service/ServicesService';
   import AuthenticationService from '@/service/AuthenticationService';
+  import ImgUrlModal from './modals/ImgUrlModal';
 
   export default {
     data() {
       return {
         isAdmin: AuthenticationService.isAdmin(),
+        ImgUrlModalVisible: false,
         editArea: {
           title: '',
           description: '',
-          photo: 'https://via.placeholder.com/900x750',
+          photo: 'placeholder.png',
           id: '',
         },
       };
     },
+    components: {
+      ImgUrlModal,
+    },
     methods: {
+      handlerEditPhoto() {
+        this.ImgUrlModalVisible = true;
+      },
+      getImgUrl(name) {
+        // eslint-disable-next-line global-require,import/no-dynamic-require
+        return require(`../../public/static/${name}`);
+      },
+      handlerImgModalSubmit(ulrImg) {
+        this.editArea.photo = ulrImg;
+        this.ImgUrlModalVisible = false;
+      },
+      handlerImgModalClose() {
+        this.ImgUrlModalVisible = false;
+      },
       onDescriptionInput(e) {
         this.editArea.description = e.target.innerHTML;
       },

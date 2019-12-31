@@ -51,17 +51,17 @@ public class MedicalCenterApplication {
         MedicalService service1 = new MedicalService();
         service1.setTitle("Зубной врач");
         service1.setDescription(DESCRIPTION);
-        service1.setImage("https://via.placeholder.com/900x750");
+        service1.setImage("1.png");
 
         MedicalService service2 = new MedicalService();
         service2.setTitle("Диагностика");
         service2.setDescription(DESCRIPTION);
-        service2.setImage("https://via.placeholder.com/900x750");
+        service2.setImage("123.jpg");
 
         MedicalService service3 = new MedicalService();
         service3.setTitle("Диагностика");
         service3.setDescription(DESCRIPTION);
-        service3.setImage("https://via.placeholder.com/900x750");
+        service3.setImage("placeholder.png");
 
         medicalServiceRepository.save(service1);
         medicalServiceRepository.save(service2);

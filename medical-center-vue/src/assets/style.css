@@ -773,6 +773,11 @@ input:invalid:not(:placeholder-shown) + .form__error {
     display: flex;
 }
 
+.pos__rel {
+    position: relative;
+    width: 70%;
+}
+
 .time__area {
     width: 60px;
     margin-right: 48px;
