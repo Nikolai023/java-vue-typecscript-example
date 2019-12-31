@@ -48,7 +48,6 @@ export default {
         temp = new Date(year, mon);
         temp.setDate(temp.getDate() + 1);
         while (d.getMonth() === mon) {
-          console.log(haveRecords);
           arr.push({
             day: d.getDate(),
             haveTime: haveRecords.includes(d.getDate()),

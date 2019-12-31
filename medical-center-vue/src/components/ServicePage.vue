@@ -58,6 +58,7 @@
                   </tr>
                   </thead>
                   <BodyCalendar v-bind:calendar="calendar" v-bind:curDay="curDay"
+                                v-bind:isEditing="isEditing"
                                 @handlerTdClicked="handlerTdClicked"/>
                 </table>
                 <div class="times">
@@ -119,7 +120,7 @@
         times: [],
         curDay: -1,
         curTime: {},
-        cannotMakeAnAppointment: false,
+        cannotMakeAnAppointment: true,
 
         timeArea: '',
 
@@ -199,7 +200,7 @@
         this.informationModalVisible = false;
       },
       handlerSubmitRecord() {
-        if (this.curTime) {
+        if (this.curTime && (this.curDay !== -1)) {
           AppointmentService.assignAppointment(
             this.curTime, this.curDay, this.currentMonth, this.currentYear, this.service.id,
           )
@@ -215,7 +216,9 @@
         this.cannotMakeAnAppointment = false;
       },
       handlerTdClicked(cell) {
-        if (cell.haveTime) {
+        console.log(this.isEditing);
+        console.log(cell.day);
+        if (cell.haveTime || this.isEditing) {
           this.cannotMakeAnAppointment = false;
           this.curTime = {};
           this.curDay = cell.day;
@@ -255,6 +258,7 @@
         this.editArea.description = e.target.innerHTML;
       },
       handlerEditClicked() {
+        console.log(this.calendar[0].haveTime);
         this.isEditing = true;
         this.editArea = Object.assign({}, this.service);
       },
