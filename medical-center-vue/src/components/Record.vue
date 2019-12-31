@@ -5,11 +5,9 @@
       <h3 class="record-card__title"><a>{{rec.title}}</a></h3>
       <div class="record-card__description">
         Запись
-        <div class="record-card__date">на {{rec.record.getDay() + '.' +
-          (rec.record.getMonth() + 1) + '.' + rec.record.getFullYear()}}
+        <div class="record-card__date">на {{rec.record.toLocaleDateString()}}
         </div>
-        <div class="record-card__time"> в {{rec.record.getHours() + ':' +
-          rec.record.getMinutes()}}
+        <div class="record-card__time"> в {{rec.record.toLocaleTimeString()}}
         </div>
       </div>
     </div>
@@ -19,8 +17,5 @@
 <script>
   export default {
     props: ['rec'],
-    beforeMount() {
-      this.rec.record.format('yyyy-mm-dd');
-    },
   };
 </script>
